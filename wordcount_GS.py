@@ -39,7 +39,6 @@ print_words() and print_top().
 
 import sys
 import collections
-import operator
 
 # +++your code here+++
 # Define print_words(filename) and print_top(filename) functions.
