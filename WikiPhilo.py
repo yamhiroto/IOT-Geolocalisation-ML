@@ -16,30 +16,30 @@ def getFirstLink(website):
 
     ### RETRIEVE ARTICLE NAME
     title = soup.title.string.split(" Wiki",1)[0]
-    title = re.sub(r'\([^)]*\)', '', title)
+    title = re.sub(r'\([^)]*\)', '', title).replace(" —","")
 
-    ### SEARCH FOR THE STARTING WORD (IN BOLD)
+    ### SEARCH FOR THE START WORD (IN BOLD)
     soup_main_bloc = soup.find('div', {'class': 'mw-parser-output'})
 
-    k = 1
     startWord = ""
-    for boldWord in soup_main_bloc.findAll('b'):
+    listOfAllBoldWords = soup_main_bloc.findAll('b')
+    for boldWord in listOfAllBoldWords:
         parentWord = str(boldWord.parent)
-        if("<p>" in str(boldWord.parent)):
+        # When the bold word is also in italic, we have to get one more parent level
+        if("<i><b>" in parentWord):
+            parentWord = str(boldWord.parent.parent)
+        # When the parent has <p> --> we are most likely in the first paragraph
+        if("<p>" in parentWord):
             word = str(boldWord.string)
-            if(similar(word,title) > 0.5):
+            if(similar(word,title) > 0.7):
                 startWord = "<b>"+word+"</b>"+parentWord.split("<b>" + word + "</b>",1)[1][0:5]
                 break
-        k+=1
 
-    ### RETRIEVE LINKS FROM STARTING WORD
+    ### RETRIEVE LINKS FROM START WORD
     if(startWord == ""):
         raise Exception("Program didn't find the startWord!!!!!")
         
-    #sep = "<b>" + startWord + "</b>"
     new_response = response.split(startWord, 1)[1]
-    
-    #new_response=parentWord
 
     new_soup = BeautifulSoup(new_response)
     links = []
@@ -55,9 +55,6 @@ def getFirstLink(website):
 
 site = "https://fr.wikipedia.org/wiki/Anglais"
 
-#print(getFirstLink(site))
-
-
 site = site.replace("https://fr.wikipedia.org","")
 
 allFirstLinks = []
@@ -65,7 +62,7 @@ allFirstLinks = []
 count = 1
 for i in range(20):
     if("hilosoph" in site):
-        print("Distance to philosophy: " + str(count))
+        print("//******* Distance to philosophy: %d ********\\" %(count))
         break
     site = "https://fr.wikipedia.org" + site
     print(site)
@@ -73,5 +70,3 @@ for i in range(20):
     allFirstLinks.append(site)
     time.sleep(0.1)
     count+=1
-
-print(allFirstLinks)
