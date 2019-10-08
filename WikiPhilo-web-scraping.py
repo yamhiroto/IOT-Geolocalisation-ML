@@ -6,6 +6,13 @@ import re
 from difflib import SequenceMatcher
 import time
 
+"""
+03/10/2019:
+"Every Wikipedia article leads to the topic of philosophy"
+(https://secouchermoinsbete.fr/69863-tous-les-chemins-menent-a-la-philosophie-sur-wikipedia)
+This algorithm retrieved the distance from any wikipedia article to a philosophic article on Wikipedia
+"""
+
 def similar(a, b):
     return SequenceMatcher(None, a, b).ratio()
 
