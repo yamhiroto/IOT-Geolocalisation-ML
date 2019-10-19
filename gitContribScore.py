@@ -34,27 +34,30 @@ def getMeanStars(repos):
     return stars/count
 
 def getRepos(user):
-    API_TOKEN='47ad9d169977d1894d63cb7a5b0cf297d23d5e90'
+    API_TOKEN=''
     GIT_API_URL='https://api.github.com'
     REPO_LIMIT=5
     headers = {'Authorization': 'token ' + API_TOKEN}
     return requests.get(GIT_API_URL+'/users/'+user+'/repos'+'?per_page='+str(REPO_LIMIT), headers=headers).json()
 
-website = "https://gist.github.com/paulmillr/2657075"
 
-response = requests.get(website).text
-soup = BeautifulSoup(response)
 
-starMeans_dict = {}
+if __name__ == '__main__':
+    website = "https://gist.github.com/paulmillr/2657075"
 
-for row in soup.findAll('th', {'scope': 'row'}):
-    contributor = row.findNext('a').string
-    repos = getRepos(contributor)
-    if(len(repos)==0):
-        print(("User {} has no repo!").format(contributor))
-        continue
-    print("{} repos found for {}".format(len(repos),contributor))
-    meanContributor = getMeanStars(repos)
-    starMeans_dict[contributor]=meanContributor
-    print("user {} has a mean of {}".format(contributor, meanContributor))
-contributors_sorted = sorted(starMeans_dict.items(), key=operator.itemgetter(1), reverse=True)
+    response = requests.get(website).text
+    soup = BeautifulSoup(response)
+
+    starMeans_dict = {}
+
+    for row in soup.findAll('th', {'scope': 'row'}):
+        contributor = row.findNext('a').string
+        repos = getRepos(contributor)
+        if(len(repos)==0):
+            print(("User {} has no repo!").format(contributor))
+            continue
+        print("{} repos found for {}".format(len(repos),contributor))
+        meanContributor = getMeanStars(repos)
+        starMeans_dict[contributor]=meanContributor
+        print("user {} has a mean of {}".format(contributor, meanContributor))
+        contributors_sorted = sorted(starMeans_dict.items(), key=operator.itemgetter(1), reverse=True)
