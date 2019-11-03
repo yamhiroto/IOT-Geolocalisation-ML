@@ -44,6 +44,7 @@ val df_ratings_4=df_ratings_3
 // grade_formula_2 --> similar to the previous formula, but we use the logarithm in order to penalise movies
 // with few grades and harmonize grades of those with many grades
 // df_ratings_3.map(row => (row.getAs[String]("movieId"),(row.getAs[Float]("rating"),1))).show(5)
+val df_temp_1 = df_ratings_4.groupBy("movieId").agg(sum("rating"),count("movieId")).toDF("movieId","sum_ratings","nb_ratings")
 var df_grades = df_temp_1.withColumn("grade_1",$"sum_ratings"/($"nb_ratings"+1))
 df_grades = df_grades.withColumn("grade_2",($"sum_ratings"/($"nb_ratings"))*log($"nb_ratings")) // (base exp logarithm)
 // Display top 5
