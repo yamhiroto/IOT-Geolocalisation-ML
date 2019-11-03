@@ -12,51 +12,85 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class SLAVE_MR {
 
-	public static final String FOLDER_NAME_TMP = "/tmp";
-	public static final String FOLDER_NAME_MAPS = "/maps";
-	public static final String FOLDER_NAME_PERSO = "/gsavoure";
-	public static final String FOLDER_CREATION_COMMAND = "mkdir";
-	public static final String HOME_FOLDER = "/cal/homes";
-	
-	public static void main(String[] args) throws IOException, InterruptedException {
+    public static final String FOLDER_NAME_TMP = "/tmp";
+    public static final String FOLDER_NAME_MAPS = "/maps";
+    public static final String FOLDER_NAME_SHUFFLES = "/shuffles";
+    public static final String FOLDER_NAME_PERSO = "/savoga";
+    //public static final String FOLDER_NAME_PERSO = "/gsavoure";
+    public static final String FOLDER_CREATION_COMMAND = "mkdir";
 
-		int dotIndex = args[1].indexOf('.');
-		String splitNb = args[1].substring(dotIndex-1, dotIndex);
-		
-		Path mapFile = Paths.get(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_MAPS + "/UM" + splitNb +  ".txt");
-	
-		List<String> content = Files.readAllLines(Paths.get(args[1]));
-		Map<String, Integer> mapOccurences = new TreeMap<>();
-		List<String> listOccurences = new ArrayList<>();
+    public static void main(String[] args) throws Exception {
 
-		while(!folderExist(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_MAPS)) {
-			ProcessBuilder processBuilder2 = new ProcessBuilder(FOLDER_CREATION_COMMAND, FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_MAPS);
-			System.out.println("Folder /maps created");
-			MyThread myThreadDir = startThread(processBuilder2);
-			Thread.sleep(2000); // let some time for the folder to be created
-		}
+        if(args.length==0) {
+            throw new Exception("No argument!!");
+        }
 
-		for(String line: content) {
-			String[] words = line.split(" ");
-			for(String word: words) {
-				//mapOccurences.put(word, 1);
-				listOccurences.add(word + " 1");
-			}
-		}
-		Files.write(mapFile, listOccurences, StandardCharsets.UTF_8);
-		System.out.println("UM" + splitNb + " created in " + FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_MAPS);
-	}
+        switch (args[0]) {
 
-	public static boolean folderExist(String searchedFolder) throws InterruptedException {
-		Path p = Paths.get(searchedFolder);
-		return Files.exists(p);
-	}
-	
-	public static MyThread startThread(ProcessBuilder processBuilder) {
-		MyThread myThread = null;
-		BlockingQueue<String> queue = new LinkedBlockingQueue<>();
-		myThread = new MyThread(queue, processBuilder);
-		new Thread(myThread).start();
-		return myThread;	
-	}
+            case "0":
+                // *** MAP: Write the UM file ***
+
+                int dotIndex = args[1].indexOf('.');
+                String splitNb = args[1].substring(dotIndex - 1, dotIndex);
+
+                Path mapFile = Paths.get(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_MAPS + "/UM" + splitNb + ".txt");
+
+                List<String> contentSplitFile = Files.readAllLines(Paths.get(args[1]));
+                Map<String, Integer> mapOccurences = new TreeMap<>();
+                List<String> listOccurences = new ArrayList<>();
+
+                while (!folderExist(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_MAPS)) {
+                    ProcessBuilder processBuilder2 = new ProcessBuilder(FOLDER_CREATION_COMMAND, FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_MAPS);
+                    System.out.println("Folder /maps created");
+                    MyThread myThreadDir = startThread(processBuilder2);
+                    Thread.sleep(2000); // let some time for the folder to be created
+                }
+
+                for (String line : contentSplitFile) {
+                    String[] words = line.split(" ");
+                    for (String word : words) {
+                        //mapOccurences.put(word, 1);
+                        listOccurences.add(word + " 1");
+                    }
+                }
+                Files.write(mapFile, listOccurences, StandardCharsets.UTF_8);
+                System.out.println("UM" + splitNb + " created in " + FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_MAPS);
+                break;
+
+            case "1":
+                // *** SHUFFLE: Write the hash files ***
+
+                while (!folderExist(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLES)) {
+                    ProcessBuilder processBuilder2 = new ProcessBuilder(FOLDER_CREATION_COMMAND, FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLES);
+                    System.out.println("Folder /shuffles created");
+                    MyThread myThreadDir = startThread(processBuilder2);
+                    Thread.sleep(2000); // let some time for the folder to be created
+                }
+
+                List<String> contentMapFile = Files.readAllLines(Paths.get(args[1]));
+                for (String line : contentMapFile) {
+                    String[] words = line.split(" ");
+                    String word = words[0];
+                    System.out.println(word.hashCode());
+                }
+
+                break;
+
+
+        }
+
+    }
+
+    public static boolean folderExist(String searchedFolder) throws InterruptedException {
+        Path p = Paths.get(searchedFolder);
+        return Files.exists(p);
+    }
+
+    public static MyThread startThread(ProcessBuilder processBuilder) {
+        MyThread myThread = null;
+        BlockingQueue<String> queue = new LinkedBlockingQueue<>();
+        myThread = new MyThread(queue, processBuilder);
+        new Thread(myThread).start();
+        return myThread;
+    }
 }

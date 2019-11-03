@@ -6,49 +6,48 @@ import java.util.concurrent.BlockingQueue;
 
 public class MyThread implements Runnable {
 
-	private final BlockingQueue<String> queue;
-	private Process p;
+    private final BlockingQueue<String> queue;
+    private Process p;
 
-	@Override
-	public void run() {
-		try {
-			process();
-		} catch (InterruptedException | IOException e) {
-			Thread.currentThread().interrupt();
-		}
-	}
+    @Override
+    public void run() {
+        try {
+            process();
+        } catch (InterruptedException | IOException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 
-	public void setStop(Boolean stop) {
-		p.destroy();
-	}
+    public void setStop(Boolean stop) {
+        p.destroy();
+    }
 
-	private void process() throws InterruptedException, IOException {
+    private void process() throws InterruptedException, IOException {
 
-		InputStream is = p.getInputStream();
-		InputStreamReader isr = new InputStreamReader(is);
-		BufferedReader processOutput = new BufferedReader(isr);
-		String output;
+        InputStream is = p.getInputStream();
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader processOutput = new BufferedReader(isr);
+        String output;
 
-		while ((output = processOutput.readLine()) != null) {
-			queue.put(output);
-		}
-		
-	}
-	
-	public BlockingQueue<String> getQueue() {
-		return queue;
-	}
+        while ((output = processOutput.readLine()) != null) {
+            queue.put(output);
+        }
 
-	public MyThread(BlockingQueue<String> queue, ProcessBuilder processBuilder) {
-		Process p = null;
-		try {
-			p = processBuilder.start();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.queue = queue;
-		this.p = p;
-	}
+    }
+
+    public BlockingQueue<String> getQueue() {
+        return queue;
+    }
+
+    public MyThread(BlockingQueue<String> queue, ProcessBuilder processBuilder) {
+        Process p = null;
+        try {
+            p = processBuilder.start();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        this.queue = queue;
+        this.p = p;
+    }
 }
-

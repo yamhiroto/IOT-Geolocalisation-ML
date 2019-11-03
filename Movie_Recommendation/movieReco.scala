@@ -30,6 +30,13 @@ val df_top_movies = df_ratings_3.groupBy($"_c1")
 val df_top_movies_2 = df_top_movies.join(df_movies_2, df_top_movies("_c1")===df_movies_2("_c0")).show(false)
 // Result not really interesting because it shows movies that have been rated only once with 5 stars...
 
+// Rename columns
+val df_ratings_4=df_ratings_3
+.withColumnRenamed("_c0","userId")
+.withColumnRenamed("_c1","movieId")
+.withColumnRenamed("_c2","rating")
+.withColumnRenamed("_c3","timestamp")
+
 // Better ordered list
 // grade_formula_1 --> the numerator is increasing higher that the denominator when the number of grades increases
 // => it allows to penalise the movies that has only few grades
@@ -37,6 +44,6 @@ val df_top_movies_2 = df_top_movies.join(df_movies_2, df_top_movies("_c1")===df_
 // grade_formula_2 --> similar to the previous formula, but we use the logarithm in order to penalise movies
 // with few grades and harmonize grades of those with many grades
 // ***MAP***
-df_ratings_3.map(row => (row.getAs[String]("_c1"),(row.getAs[Float]("_c2"),1))).show(5)
+df_ratings_3.map(row => (row.getAs[String]("movieId"),(row.getAs[Float]("rating"),1))).show(5)
 // ***REDUCEBYKEY***
 
