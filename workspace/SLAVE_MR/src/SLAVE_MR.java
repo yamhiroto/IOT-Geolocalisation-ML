@@ -1,8 +1,9 @@
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,8 @@ public class SLAVE_MR {
     public static final String FOLDER_CREATION_COMMAND = "mkdir";
 
     public static void main(String[] args) throws Exception {
+
+        // WARNING: DO NOT REPLACE THE "-p" BY A VARIABLE IN THE PROCESSBUILDER
 
         if(args.length==0) {
             throw new Exception("No argument!!");
@@ -40,7 +43,7 @@ public class SLAVE_MR {
                 List<String> listOccurences = new ArrayList<>();
 
                 while (!folderExist(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_MAPS)) {
-                    ProcessBuilder processBuilder2 = new ProcessBuilder(FOLDER_CREATION_COMMAND, FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_MAPS);
+                    ProcessBuilder processBuilder2 = new ProcessBuilder(FOLDER_CREATION_COMMAND, "-p", FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_MAPS);
                     System.out.println("Folder /maps created");
                     MyThread myThreadDir = startThread(processBuilder2);
                     Thread.sleep(2000); // let some time for the folder to be created
@@ -61,7 +64,7 @@ public class SLAVE_MR {
                 // *** SHUFFLE: Write the hash files ***
 
                 while (!folderExist(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLES)) {
-                    ProcessBuilder processBuilder2 = new ProcessBuilder(FOLDER_CREATION_COMMAND, FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLES);
+                    ProcessBuilder processBuilder2 = new ProcessBuilder(FOLDER_CREATION_COMMAND, "-p", FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLES);
                     System.out.println("Folder /shuffles created");
                     MyThread myThreadDir = startThread(processBuilder2);
                     Thread.sleep(2000); // let some time for the folder to be created
@@ -71,12 +74,22 @@ public class SLAVE_MR {
                 for (String line : contentMapFile) {
                     String[] words = line.split(" ");
                     String word = words[0];
-                    System.out.println(word.hashCode());
+                    String hashCodeWord = Integer.toString(word.hashCode());
+                    String hostNameMachine = java.net.InetAddress.getLocalHost().getHostName();
+                    String fileNameShuffle = hashCodeWord + "-" + hostNameMachine + ".txt";
+                    if (folderExist(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLES + "/" + fileNameShuffle)) {
+                        FileWriter fw = new FileWriter(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLES + "/test.txt", true);
+                        BufferedWriter bw = new BufferedWriter(fw);
+                        PrintWriter out = new PrintWriter(bw);
+                        bw.write("word 1");
+                        bw.newLine();
+                        // TODO: Create file when not existing and try test in 11.2; replace all (?) folder creation commands with FileWriter
+                    } else {
+
+                    }
                 }
 
                 break;
-
-
         }
 
     }

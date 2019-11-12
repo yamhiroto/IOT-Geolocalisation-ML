@@ -7,10 +7,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="621b92a5-bd85-446a-96b7-d8625af8e591" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../MASTER_MR/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DEPLOY_MR/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Maths_for_Data_Science/Maths_GS.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../Maths_for_Data_Science/Maths_GS.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Maths_for_Data_Science/Maths_ML.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../Maths_for_Data_Science/Maths_ML.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Ridge 4.1) 4.2) - Groupe 10.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../Ridge 4.1) 4.2) - Groupe 10.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DEPLOY_MR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DEPLOY_MR/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DEPLOY_MR/machines.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../DEPLOY_MR/machines.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../MASTER_MR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MASTER_MR/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MASTER_MR/out/production/MapReduceFromScratch/META-INF/MapReduceFromScratch.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MASTER_MR/src/MASTER_MR.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MASTER_MR/src/MASTER_MR.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SLAVE_MR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SLAVE_MR.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,6 +44,7 @@
   <component name="ProjectId" id="1Sy3s9jcu99OTJPRAZ1aQv7Edzb" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
@@ -58,7 +66,7 @@
     <configuration name="SLAVE_MR" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="SLAVE_MR" />
       <module name="SLAVE_MR" />
-      <option name="PROGRAM_PARAMETERS" value="1 $PROJECT_DIR$/../../maps/UM1.txt" />
+      <option name="PROGRAM_PARAMETERS" value="1 $PROJECT_DIR$/../maps/UM0.txt" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -94,7 +102,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
