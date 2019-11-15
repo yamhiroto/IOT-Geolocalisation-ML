@@ -68,6 +68,6 @@ val df_ratings_y=df_ratings_4.filter($"userId"==="2")
 df_ratings_y.intersect(df_ratings_x)
 
 // Get the variance for the x user
-df_ratings_x.describe().filter($"summary"==="stddev").select("rating").take(1)(0)(0) // type --> 'Any'???
+df_ratings_x.select($"rating").groupBy().agg(stddev($"rating")).take(1)(0).getDouble(0)
 
 // ***********************************************
