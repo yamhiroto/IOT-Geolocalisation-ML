@@ -68,10 +68,10 @@ dfCasted.groupBy("country", "currency").count.orderBy($"count".desc).show(10)
 dfCasted.select("deadline").dropDuplicates.show(10)
 
 // Suppression d'une colonne majoritairement à false
-var df2: DataFrame = dfCasted.drop("disable_communication")
+val dfDeletedFalseCol: DataFrame = dfCasted.drop("disable_communication")
 
 // On enlève les colonnes susceptibles de générer des fuites du futur
-val dfNoFutur: DataFrame = df2.drop("backers_count", "state_changed_at") // le nombre d'investisseurs n'est connu qu'à la fin de la campagne
+val dfNoFutur: DataFrame = dfDeletedFalseCol.drop("backers_count", "state_changed_at") // le nombre d'investisseurs n'est connu qu'à la fin de la campagne
 
 // Affichage de la colonne 'country' qui comporte des typo
 df.filter($"country" === "False")
@@ -98,14 +98,14 @@ def cleanCurrency(currency: String): String = {
 val cleanCountryUdf = udf(cleanCountry _)
 val cleanCurrencyUdf = udf(cleanCurrency _)
 
-df2 = dfNoFutur
+val dfCorrectedCountry: DataFrame = dfNoFutur
   .withColumn("country2", cleanCountryUdf($"country", $"currency"))
   .withColumn("currency2", cleanCurrencyUdf($"currency"))
   .drop("country", "currency")
 
 // Afficher le nombre d'éléments de chaque classe
-df2.filter($"final_status" === 0).count
-df2.filter($"final_status" === 1).count
+dfCorrectedCountry.filter($"final_status" === 0).count
+dfCorrectedCountry.filter($"final_status" === 1).count
 
 // Supprimer les classes autre que 0 et 1
 def isZeroOrOne(status: Integer): Boolean = {
@@ -115,41 +115,42 @@ def isZeroOrOne(status: Integer): Boolean = {
     false
 }
 val isZeroOrOneUdf = udf(isZeroOrOne _)
-var df3 = df2
-  .withColumn("final_status2", isZeroOneOneUdf($"final_status"))
+val dfCleanedOutput = dfCorrectedCountry
+  .withColumn("final_status2", isZeroOrOneUdf($"final_status"))
   .filter($"final_status2" === true)
   .drop("final_status2")
 
-df3.filter($"final_status" !== 0).filter($"final_status" !== 1).show(5) // vérification de la suppression
+dfCleanedOutput.filter($"final_status" !== 0).filter($"final_status" !== 1).show(5) // vérification de la suppression
 
 // ***** Ajouter et manipuler des colonnes *****
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.functions.from_unixtime
 
 // Ajout de la durée de la campagne en jours
-df3=df3.withColumn("days_campaign", datediff(from_unixtime($"deadline"),from_unixtime($"launched_at")))
+val dfDaysCampaign: DataFrame = dfCleanedOutput.withColumn("days_campaign", datediff(from_unixtime($"deadline"),from_unixtime($"launched_at")))
 
 // Ajout du nombre d’heures de préparation de la campagne
-df3=df3.withColumn("hours_prepa", round(($"launched_at"-$"created_at")/3600.floatValue(),3))
+val dfHoursPrepa: DataFrame = dfDaysCampaign.withColumn("hours_prepa", round(($"launched_at"-$"created_at")/3600.floatValue(),3))
 
 // Suppression des colonnes non exploitables
-df3=df3.drop("launched_at","deadline","created_at")
+val dfDeletedCol: DataFrame = dfHoursPrepa.drop("launched_at","deadline","created_at")
 
 // Colonnes en minuscules
-df3=df3.withColumn("name",lower($"name"))
+val dfLowerCol: DataFrame = dfDeletedCol.withColumn("name",lower($"name"))
     .withColumn("desc",lower($"desc"))
     .withColumn("keywords",lower($"keywords"))
 
 // Concaténation
-df3=df3.withColumn("text_temp", concat($"name", lit(" "), $"desc"))
+val dfConcat: DataFrame = dfLowerCol.withColumn("text_temp", concat($"name", lit(" "), $"desc"))
       .withColumn("text", concat($"text_temp", lit(" "), $"keywords"))
       .drop($"text_temp")
 
 // Gestion des valeurs nulles
 val map = Map("days_campaign" -> -1, "hours_prepa" -> -1, "goal" -> -1, "country2" -> "unknown", "currency2" -> "unknown")
-df3=df3.na.fill(map)
+val dfReplacedNull: DataFrame = dfConcat.na.fill(map)
 
 // ***** Enregistrer les données nettoyées en format parquet *****
+// ATTENTION: le dossier DF ne doit pas déjà exister...
 import java.io.File
-val data_cleaned = new File("/data_kickstarter/DF")
-df3.write.parquet(data_cleaned.toString)
+val data_cleaned = new File("/home/savoga/spark-2.3.4-bin-hadoop2.7/bin/data_kickstarter/DF")
+dfReplacedNull.write.parquet(data_cleaned.toString)
