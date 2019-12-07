@@ -33,8 +33,6 @@ val df: DataFrame = spark
 println(s"Nombre de lignes : ${df.count}")
 println(s"Nombre de colonnes : ${df.columns.length}")
 
-df.show(5)
-
 // Nom de chaque colonne avec son type
 df.printSchema()
 
@@ -78,7 +76,7 @@ df.filter($"country" === "False")
       .groupBy("currency")
       .count
       .orderBy($"count".desc)
-      .show(50)
+      .show(10)
 
 // Création de deux UDFs pour corriger le problème de la colonne 'country'
 def cleanCountry(country: String, currency: String): String = {
