@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.11.1)  17 DEC 2019 18:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.11.1)  18 DEC 2019 20:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**Maths_GS_Tex.tex
-(./Maths_GS_Tex.tex
+**Stats_GS_Tex.tex
+(./Stats_GS_Tex.tex
 LaTeX2e <2017-04-15>
 Babel <3.18> and hyphenation patterns for 3 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -536,8 +536,8 @@ File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 \Gin@req@height=\dimen129
 \Gin@req@width=\dimen130
 )
-(./Maths_GS_Tex.aux)
-\openout1 = `Maths_GS_Tex.aux'.
+No file Stats_GS_Tex.aux.
+\openout1 = `Stats_GS_Tex.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 91.
 LaTeX Font Info:    ... okay on input line 91.
@@ -551,7 +551,6 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 91.
 LaTeX Font Info:    ... okay on input line 91.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 91.
 LaTeX Font Info:    ... okay on input line 91.
-
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -654,48 +653,45 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-(./Stats_recall.tex
-LaTeX Font Info:    Try loading font information for U+msa on input line 11.
- (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+(./Central_Limit_Theorem.tex
+LaTeX Font Info:    Try loading font information for U+msa on input line 3.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 11.
+LaTeX Font Info:    Try loading font information for U+msb on input line 3.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Underfull \hbox (badness 10000) in paragraph at lines 11--12
+))
+(./Spectral_Theorem.tex) (./Likelihood.tex) [1
 
- []
-
-) (./Estimation.tex) [1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-(./Maths_GS_Tex.aux) ) 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./Stats_GS_Tex.aux) ) 
 Here is how much of TeX's memory you used:
- 4757 strings out of 494923
- 66166 string characters out of 6180742
+ 4758 strings out of 494923
+ 66217 string characters out of 6180742
  120028 words of memory out of 5000000
  7965 multiletter control sequences out of 15000+600000
  14842 words of font info for 46 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  41i,4n,38p,279b,115s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour/jkn
-appen/ec/ecti1095.600pk> </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour/j
-knappen/ec/ecrm1095.600pk> </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour
-/jknappen/ec/ecbx1200.600pk> </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfo
-ur/jknappen/ec/ecbx2074.579pk></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Maths_GS_Tex.pdf (1 page, 97873 bytes).
+ </h
+ome/savoga/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1095.600pk> <
+/home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk>
+ </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600p
+k> </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.57
+9pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/symbols/msbm10.pfb>
+Output written on Stats_GS_Tex.pdf (1 page, 97860 bytes).
 PDF statistics:
- 141 PDF objects out of 1000 (max. 8388607)
+ 140 PDF objects out of 1000 (max. 8388607)
  47 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)

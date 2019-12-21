@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3facd64-0386-47f3-8a9a-1a6e189e4874" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SLAVE_MR/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Maths_for_Data_Science/.ipynb_checkpoints/Maths_ML-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../Maths_for_Data_Science/.ipynb_checkpoints/Maths_ML-checkpoint.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Maths_for_Data_Science/Maths_GS.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../Maths_for_Data_Science/Maths_GS.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Maths_for_Data_Science/Maths_ML.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../Maths_for_Data_Science/Maths_ML.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Ridge 4.1) 4.2) - Groupe 10.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../Ridge 4.1) 4.2) - Groupe 10.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/machines.txt" beforeDir="false" afterPath="$PROJECT_DIR$/machines.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MASTER_MR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MASTER_MR/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MASTER_MR/src/MASTER_MR.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MASTER_MR/src/MASTER_MR.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SLAVE_MR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SLAVE_MR/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SLAVE_MR/src/SLAVE_MR.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SLAVE_MR/src/SLAVE_MR.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -93,7 +86,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
