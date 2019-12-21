@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,6 +26,7 @@ public class MASTER_MR {
     public static final String SLAVE_FILENAME = "SLAVE_MR.jar";
     public static final String USER_PREFIX = "gsavoure@";
     public static final String COPY_COMMAND = "scp";
+    public static final String WORKSPACE_FOLDER = "/home/savoga/Documents/various_projects/workspace/MASTER_MR";
     public static final String HOME_FOLDER = "/home/savoga";
     public static List<String> usedMachines = new ArrayList<>();
     public static final String MACHINES_FILENAME="machines_test.txt";
@@ -37,6 +39,7 @@ public class MASTER_MR {
         usedMachines.clear();
         System.out.println("*** Split deployment finished. ***");
 
+        /***
         System.out.println("*** Map started. ***");
         map_MR();
         usedMachines.clear();
@@ -45,6 +48,7 @@ public class MASTER_MR {
         System.out.println("*** Shuffle started. ***");
         shuffle_MR();
         System.out.println("*** Shuffle finished. ***");
+        ***/
 
     }
 
@@ -83,10 +87,12 @@ public class MASTER_MR {
         ThreadDeploySplit[] threads = new ThreadDeploySplit[nbFiles];
         for (int i = 0; i < nbFiles; i++) {
             String splitName = "S" + i + ".txt";
-            Path p = Paths.get(splitName);
-            if (p != null) {
+            File f = new File(WORKSPACE_FOLDER + "/" + splitName);
+            if (f.exists()) {
                 threads[i] = new ThreadDeploySplit(getNextAvailableMachine(), splitName);
                 es.execute(threads[i]);
+            } else {
+                System.out.println("no split file found");
             }
         }
         es.shutdown();

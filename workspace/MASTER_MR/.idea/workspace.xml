@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11819166-6b48-4a89-b408-638d9e7ae6bc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../DEPLOY_MR/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SLAVE_MR/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Maths_for_Data_Science/Maths_GS.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../Maths_for_Data_Science/Maths_GS.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Maths_for_Data_Science/Maths_ML.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../Maths_for_Data_Science/Maths_ML.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Ridge 4.1) 4.2) - Groupe 10.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../Ridge 4.1) 4.2) - Groupe 10.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DEPLOY_MR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DEPLOY_MR/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DEPLOY_MR/machines.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../DEPLOY_MR/machines.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MASTER_MR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MASTER_MR.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SLAVE_MR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SLAVE_MR/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SLAVE_MR/src/SLAVE_MR.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SLAVE_MR/src/SLAVE_MR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ThreadDeploySplit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ThreadDeploySplit.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -110,8 +102,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/MASTER_MR.java</url>
-          <line>138</line>
-          <option name="timeStamp" value="40" />
+          <line>90</line>
+          <option name="timeStamp" value="57" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
