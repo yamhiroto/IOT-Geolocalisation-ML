@@ -15,7 +15,7 @@ public class ThreadMap implements Runnable {
                 MASTER_MR.FOLDER_NAME_TMP + MASTER_MR.FOLDER_NAME_PERSO + "/" + MASTER_MR.SLAVE_FILENAME,
                 "0", MASTER_MR.FOLDER_NAME_TMP + MASTER_MR.FOLDER_NAME_PERSO + MASTER_MR.FOLDER_NAME_SPLITS + "/" + _splitName);
         MASTER_MR.startThreadProcessBuilder(processBuilder2);
-        // @Todo: if jar executed without error, we display the following line
+        // @Todo: handle error during jar execution
         System.out.println("map executed on machine " + _machineName);
 
     }

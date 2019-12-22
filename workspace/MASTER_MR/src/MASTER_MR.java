@@ -39,12 +39,12 @@ public class MASTER_MR {
         usedMachines.clear();
         System.out.println("*** Split deployment finished. ***");
 
-        /***
         System.out.println("*** Map started. ***");
         map_MR();
         usedMachines.clear();
         System.out.println("*** Map finished. ***");
 
+        /***
         System.out.println("*** Shuffle started. ***");
         shuffle_MR();
         System.out.println("*** Shuffle finished. ***");
