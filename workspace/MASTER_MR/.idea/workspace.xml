@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11819166-6b48-4a89-b408-638d9e7ae6bc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../CLEAN/CLEAN_MR.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DEPLOY_MR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DEPLOY_MR/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DEPLOY_MR/machines.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../DEPLOY_MR/machines.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MapReduceFromScratch/MASTER_MR.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MapReduceFromScratch/MASTER_MR.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MASTER_MR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MASTER_MR.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ThreadMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ThreadMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ThreadShuffle_sendTxtMachines.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ThreadShuffle_sendTxtMachines.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SLAVE_MR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SLAVE_MR/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../workspace_old/CLEAN/machines_test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../workspace_old/CLEAN/machines_test.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,6 +34,7 @@
   <component name="ProjectId" id="1SxxonHLzfGU3K8sFQjCPYjCOwK" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../DEPLOY_MR" />

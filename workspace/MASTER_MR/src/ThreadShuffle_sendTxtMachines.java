@@ -1,3 +1,4 @@
+import java.io.File;
 
 public class ThreadShuffle_sendTxtMachines implements Runnable {
 
@@ -22,10 +23,15 @@ public class ThreadShuffle_sendTxtMachines implements Runnable {
         }
 
         // *** Copy machines.txt file ***
-        ProcessBuilder processBuilder3 = new ProcessBuilder(MASTER_MR.COPY_COMMAND, MASTER_MR.HOME_FOLDER + "/Documents/workspace/MASTER_MR/" + MASTER_MR.MACHINES_FILENAME,
-                _machineName + ":" + MASTER_MR.FOLDER_NAME_TMP + MASTER_MR.FOLDER_NAME_PERSO + "/");
-        System.out.println("Copying " + MASTER_MR.MACHINES_FILENAME + " on " + _machineName);
-        MASTER_MR.startThreadProcessBuilder(processBuilder3);
+        File f = new File(MASTER_MR.WORKSPACE_FOLDER + "/" + MASTER_MR.MACHINES_FILENAME);
+        if(f.exists()) {
+            ProcessBuilder processBuilder3 = new ProcessBuilder(MASTER_MR.COPY_COMMAND, MASTER_MR.WORKSPACE_FOLDER + "/" + MASTER_MR.MACHINES_FILENAME,
+                    _machineName + ":" + MASTER_MR.FOLDER_NAME_TMP + MASTER_MR.FOLDER_NAME_PERSO + "/");
+            System.out.println("Copying " + MASTER_MR.MACHINES_FILENAME + " on " + _machineName);
+            MASTER_MR.startThreadProcessBuilder(processBuilder3);
+        } else {
+            System.out.println(MASTER_MR.MACHINES_FILENAME + " not found!!");
+        }
 
     }
 

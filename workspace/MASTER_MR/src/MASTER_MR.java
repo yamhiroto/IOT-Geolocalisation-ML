@@ -34,6 +34,7 @@ public class MASTER_MR {
 
     public static void main(String[] args) throws Exception {
 
+
         System.out.println("*** Split deployment started. ***");
         split_deploy_MR();
         usedMachines.clear();
@@ -44,11 +45,10 @@ public class MASTER_MR {
         usedMachines.clear();
         System.out.println("*** Map finished. ***");
 
-        /***
         System.out.println("*** Shuffle started. ***");
         shuffle_MR();
         System.out.println("*** Shuffle finished. ***");
-        ***/
+
 
     }
 
