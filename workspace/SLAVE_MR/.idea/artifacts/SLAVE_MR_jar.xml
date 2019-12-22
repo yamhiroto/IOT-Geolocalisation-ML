@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="SLAVE_MR:jar">
-    <output-path>$PROJECT_DIR$/../../</output-path>
+    <output-path>/tmp/savoga/</output-path>
     <root id="archive" name="SLAVE_MR.jar">
       <element id="module-output" name="SLAVE_MR" />
       <element id="extracted-dir" path="$KOTLIN_BUNDLED$/lib/kotlin-stdlib.jar" path-in-jar="/" />

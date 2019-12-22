@@ -24,7 +24,7 @@ public class SLAVE_MR {
 
         // WARNING: DO NOT REPLACE THE "-p" BY A VARIABLE IN THE PROCESSBUILDER
 
-        if(args.length==0) {
+        if (args.length == 0) {
             throw new Exception("No argument!!");
         }
 
@@ -44,6 +44,7 @@ public class SLAVE_MR {
 
                 while (!folderExist(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_MAPS)) {
                     ProcessBuilder processBuilder2 = new ProcessBuilder(FOLDER_CREATION_COMMAND, "-p", FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_MAPS);
+                    // TODO: replace ProcessBuilder with FileWriter
                     System.out.println("Folder /maps created");
                     MyThread myThreadDir = startThread(processBuilder2);
                     Thread.sleep(2000); // let some time for the folder to be created
@@ -77,16 +78,19 @@ public class SLAVE_MR {
                     String hashCodeWord = Integer.toString(word.hashCode());
                     String hostNameMachine = java.net.InetAddress.getLocalHost().getHostName();
                     String fileNameShuffle = hashCodeWord + "-" + hostNameMachine + ".txt";
-                    if (folderExist(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLES + "/" + fileNameShuffle)) {
-                        FileWriter fw = new FileWriter(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLES + "/test.txt", true);
-                        BufferedWriter bw = new BufferedWriter(fw);
-                        PrintWriter out = new PrintWriter(bw);
-                        bw.write("word 1");
-                        bw.newLine();
-                        // TODO: Create file when not existing and try test in 11.2; replace all (?) folder creation commands with FileWriter
-                    } else {
+                    System.out.println(fileNameShuffle);
 
+                    File fileText = new File(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLES + "/" + fileNameShuffle);
+                    FileOutputStream is = new FileOutputStream(fileText, true);
+                    OutputStreamWriter osw = new OutputStreamWriter(is);
+
+                    if (!folderExist(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLES + "/" + fileNameShuffle)) {
+                        fileText.createNewFile();
                     }
+                    Writer w = new BufferedWriter(osw);
+                    w.append(word + " 1");
+                    w.append("\n\r");
+                    w.close();
                 }
 
                 break;

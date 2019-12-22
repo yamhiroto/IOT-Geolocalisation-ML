@@ -4,10 +4,9 @@
     <list default="true" id="d3facd64-0386-47f3-8a9a-1a6e189e4874" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../MASTER_MR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MASTER_MR/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MASTER_MR/out/production/MapReduceFromScratch/MASTER_MR.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MASTER_MR/out/production/MapReduceFromScratch/MASTER_MR.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MASTER_MR/src/MASTER_MR.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MASTER_MR/src/MASTER_MR.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MASTER_MR/src/ThreadShuffle_sendTxtMachines.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MASTER_MR/src/ThreadShuffle_sendTxtMachines.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SLAVE_MR/.idea/artifacts/SLAVE_MR_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SLAVE_MR/.idea/artifacts/SLAVE_MR_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SLAVE_MR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SLAVE_MR/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SLAVE_MR/src/SLAVE_MR.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SLAVE_MR/src/SLAVE_MR.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
