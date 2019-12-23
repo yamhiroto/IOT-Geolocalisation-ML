@@ -65,7 +65,7 @@ public class CLEAN_MR {
         ProcessBuilder processBuilder = new ProcessBuilder(SSH_COMMAND, USER_PREFIX + machineName, LS_COMMAND, FOLDER_PATH);
         MyThread myThread = startThread(processBuilder);
         try {
-            Thread.sleep(5000); // let some time so that the queue gets filled
+            Thread.sleep(2000); // let some time so that the queue gets filled
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

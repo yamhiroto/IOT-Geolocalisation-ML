@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.concurrent.BlockingQueue;
 
-public class MyThread implements Runnable {
+public class ThreadProcessBuilder implements Runnable {
 
     private final BlockingQueue<String> queue;
     private Process p;
@@ -39,7 +39,7 @@ public class MyThread implements Runnable {
         return queue;
     }
 
-    public MyThread(BlockingQueue<String> queue, ProcessBuilder processBuilder) {
+    public ThreadProcessBuilder(BlockingQueue<String> queue, ProcessBuilder processBuilder) {
         Process p = null;
         try {
             p = processBuilder.start();
