@@ -139,7 +139,7 @@ public class SLAVE_MR {
     }
 
     public static List<String> getMachineList() throws IOException {
-        List<String> content = Files.readAllLines(Paths.get(FILENAME_MACHINES));
+        List<String> content = Files.readAllLines(Paths.get(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + "/" + FILENAME_MACHINES));
         List<String> wordList = new ArrayList<>();
         for (String line : content) { // in this program, line = word
             wordList.add(line);
