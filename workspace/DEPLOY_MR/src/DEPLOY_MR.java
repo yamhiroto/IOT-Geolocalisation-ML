@@ -40,7 +40,7 @@ public class DEPLOY_MR {
                 System.out.println("Trying to connect to " + machineName);
                 ProcessBuilder processBuilder = new ProcessBuilder(SSH_COMMAND, machineName, HOSTNAME_COMMAND);
                 MyThread myThread = startThread(processBuilder);
-                String valueThread = myThread.getQueue().poll(2, TimeUnit.SECONDS);
+                String valueThread = myThread.getQueue().poll(3, TimeUnit.SECONDS);
                 if (valueThread == null) {
                     System.out.println(machineName + " is KO");
                 } else {
