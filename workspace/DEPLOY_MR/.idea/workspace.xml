@@ -2,12 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3facd64-0386-47f3-8a9a-1a6e189e4874" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../CLEAN_MR/src/CLEAN_MR.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CLEAN_MR/src/CLEAN_MR.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MASTER_MR/src/ThreadShuffle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DEPLOY_MR/DEPLOY_MR.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DEPLOY_MR/DEPLOY_MR.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DEPLOY_MR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DEPLOY_MR.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../MASTER_MR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MASTER_MR/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MASTER_MR/out/production/MapReduceFromScratch/MASTER_MR.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MASTER_MR/out/production/MapReduceFromScratch/MASTER_MR.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MASTER_MR/out/production/MapReduceFromScratch/ThreadShuffle_sendTxtMachines.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MASTER_MR/src/MASTER_MR.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MASTER_MR/src/MASTER_MR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MASTER_MR/src/ThreadShuffle_sendTxtMachines.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../SLAVE_MR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SLAVE_MR/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SLAVE_MR/out/production/SLAVE_MR/SLAVE_MR.class" beforeDir="false" afterPath="$PROJECT_DIR$/../SLAVE_MR/out/production/SLAVE_MR/SLAVE_MR.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SLAVE_MR/src/MyThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SLAVE_MR/src/ThreadProcessBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SLAVE_MR/src/SLAVE_MR.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SLAVE_MR/src/SLAVE_MR.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

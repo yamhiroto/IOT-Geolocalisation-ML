@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +19,7 @@ public class MASTER_MR {
     public static final String FOLDER_NAME_TMP = "/tmp";
     public static final String FOLDER_NAME_SPLITS = "/splits";
     public static final String FOLDER_NAME_PERSO = "/savoga";
+    public static final String FOLDER_NAME_MAPS = "/maps";
     public static final String SSH_COMMAND = "ssh";
     public static final String FOLDER_CREATION_COMMAND = "mkdir -p";
     public static final String HOSTNAME_COMMAND = "hostname";
@@ -28,13 +28,14 @@ public class MASTER_MR {
     public static final String COPY_COMMAND = "scp";
     public static final String WORKSPACE_FOLDER = "/home/savoga/Documents/various_projects/workspace/MASTER_MR";
     public static final String HOME_FOLDER = "/home/savoga";
+    public static final String LS_COMMAND = "ls";
     public static List<String> usedMachines = new ArrayList<>();
     public static final String MACHINES_FILENAME="machines_test.txt";
-    public static final int nbFiles = 3;
+    public static final int nbSplitFiles = 3;
 
     public static void main(String[] args) throws Exception {
 
-
+/***
         System.out.println("*** Split deployment started. ***");
         split_deploy_MR();
         usedMachines.clear();
@@ -45,20 +46,21 @@ public class MASTER_MR {
         usedMachines.clear();
         System.out.println("*** Map finished. ***");
 
+ ***/
+
         System.out.println("*** Shuffle started. ***");
         shuffle_MR();
         System.out.println("*** Shuffle finished. ***");
-
 
     }
 
     private static void shuffle_MR() throws IOException, InterruptedException {
         ExecutorService es = Executors.newCachedThreadPool();
-        ThreadShuffle_sendTxtMachines[] threads = new ThreadShuffle_sendTxtMachines[20];
+        ThreadShuffle[] threads = new ThreadShuffle[20];
         String machineName;
         int i =0;
         while((machineName = getNextAvailableMachine()) != null){
-            threads[i] = new ThreadShuffle_sendTxtMachines(machineName);
+            threads[i] = new ThreadShuffle(machineName);
             es.execute(threads[i]);
             i++;
         }
@@ -70,8 +72,8 @@ public class MASTER_MR {
 
     private static void map_MR() throws IOException, InterruptedException {
         ExecutorService es = Executors.newCachedThreadPool();
-        ThreadMap[] threads = new ThreadMap[nbFiles];
-        for (int i = 0; i < nbFiles; i++) {
+        ThreadMap[] threads = new ThreadMap[nbSplitFiles];
+        for (int i = 0; i < nbSplitFiles; i++) {
             String splitName = "S" + i + ".txt";
             threads[i] = new ThreadMap(getNextAvailableMachine(), splitName);
             es.execute(threads[i]);
@@ -84,8 +86,8 @@ public class MASTER_MR {
 
     private static void split_deploy_MR() throws Exception {
         ExecutorService es = Executors.newCachedThreadPool();
-        ThreadDeploySplit[] threads = new ThreadDeploySplit[nbFiles];
-        for (int i = 0; i < nbFiles; i++) {
+        ThreadDeploySplit[] threads = new ThreadDeploySplit[nbSplitFiles];
+        for (int i = 0; i < nbSplitFiles; i++) {
             String splitName = "S" + i + ".txt";
             File f = new File(WORKSPACE_FOLDER + "/" + splitName);
             if (f.exists()) {

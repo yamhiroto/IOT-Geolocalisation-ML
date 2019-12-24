@@ -60,7 +60,7 @@ public class DEPLOY_MR {
                     ProcessBuilder processBuilder3 = new ProcessBuilder(COPY_COMMAND,  HOME_FOLDER + "/Documents/" + SLAVE_FILENAME, machineName + ":" + FOLDER_PATH + FOLDER_NAME + "/");
                     System.out.println("Copying jar file on " + machineName);
                     MyThread myThreadCopy = startThread(processBuilder3);
-                    Thread.sleep(2000);
+                    Thread.sleep(4000);
                 }
 
             } catch (Exception e) {

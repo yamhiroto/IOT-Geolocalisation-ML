@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.stream.Collectors;
 
 public class SLAVE_MR {
 
@@ -79,7 +80,8 @@ public class SLAVE_MR {
     }
 
     private static void sendFilesOnMachines(List machineList, int nbMachines) throws InterruptedException {
-        List<String> fileNameList = getListFilesForFolder(new File(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLES));
+
+        List<String> fileNameList = listFilesFromPath(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLES);
 
         for (String fileName : fileNameList) {
             String hashCode = fileName.split("-")[0];
@@ -95,6 +97,17 @@ public class SLAVE_MR {
                     machineName + ":" + FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLESRECEIVED);
             System.out.println("File " + fileName + " sent on machine " + machineName);
             startThread(pb);
+        }
+    }
+
+    private static List listFilesFromPath(String path) {
+        try {
+            return Files.walk(Paths.get(path)) // Stream = data flow (list on which you can do lambda operations)
+                    .filter(Files::isRegularFile)
+                    .map(e -> e.getFileName().toString())
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -123,19 +136,6 @@ public class SLAVE_MR {
             w.append("\n");
             w.close();
         }
-    }
-
-    public static List getListFilesForFolder(final File folder) {
-        List<String> fileNameList = new ArrayList();
-        for (final File fileEntry : folder.listFiles()) {
-            if (fileEntry.isDirectory()) {
-                getListFilesForFolder(fileEntry);
-            } else {
-                String fileName = fileEntry.getName();
-                fileNameList.add(fileName);
-            }
-        }
-        return fileNameList;
     }
 
     public static List<String> getMachineList() throws IOException {
