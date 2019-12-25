@@ -37,7 +37,7 @@ public class ThreadDeploySplit implements Runnable {
             }
 
             // *** Copy of split files ***
-            ProcessBuilder processBuilder3 = new ProcessBuilder(Master.COPY_COMMAND, Master.WORKSPACE_FOLDER + "/" + _splitName, _machineName + ":" + Master.FOLDER_NAME_TMP + Master.FOLDER_NAME_PERSO + Master.FOLDER_NAME_SPLITS + "/");
+            ProcessBuilder processBuilder3 = new ProcessBuilder(Master.COPY_COMMAND, Master.FOLDER_RESOURCES + "/" + _splitName, _machineName + ":" + Master.FOLDER_NAME_TMP + Master.FOLDER_NAME_PERSO + Master.FOLDER_NAME_SPLITS + "/");
             System.out.println("Copying split file on " + _machineName);
             Master.startThreadProcessBuilder(processBuilder3);
         }

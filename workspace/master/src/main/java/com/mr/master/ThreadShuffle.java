@@ -24,9 +24,9 @@ public class ThreadShuffle implements Runnable {
             Master.startThreadProcessBuilder(processBuilder2);
         }
 
-        File f = new File(Master.WORKSPACE_FOLDER + "/" + Master.MACHINES_FILENAME);
+        File f = new File(Master.FOLDER_RESOURCES + "/" + Master.MACHINES_FILENAME);
         if(f.exists()) {
-            ProcessBuilder processBuilder3 = new ProcessBuilder(Master.COPY_COMMAND, Master.WORKSPACE_FOLDER + "/" + Master.MACHINES_FILENAME,
+            ProcessBuilder processBuilder3 = new ProcessBuilder(Master.COPY_COMMAND, Master.FOLDER_RESOURCES + "/" + Master.MACHINES_FILENAME,
                     _machineName + ":" + Master.FOLDER_NAME_TMP + Master.FOLDER_NAME_PERSO + "/");
             System.out.println("Copying " + Master.MACHINES_FILENAME + " on " + _machineName);
             Master.startThreadProcessBuilder(processBuilder3);

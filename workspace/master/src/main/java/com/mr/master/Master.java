@@ -30,7 +30,7 @@ public class Master {
     public static final String SLAVE_FILENAME = "SLAVE_MR.jar";
     public static final String USER_PREFIX = "gsavoure@";
     public static final String COPY_COMMAND = "scp";
-    public static final String WORKSPACE_FOLDER = "/home/savoga/Documents/various_projects/workspace/MASTER_MR";
+    public static final String FOLDER_RESOURCES = "src/main/resources";
     public static final String HOME_FOLDER = "/home/savoga";
     public static final String LS_COMMAND = "ls";
     public static List<String> usedMachines = new ArrayList<>();
@@ -90,7 +90,7 @@ public class Master {
         ThreadDeploySplit[] threads = new ThreadDeploySplit[nbSplitFiles];
         for (int i = 0; i < nbSplitFiles; i++) {
             String splitName = "S" + i + ".txt";
-            File f = new File(WORKSPACE_FOLDER + "/" + splitName);
+            File f = new File(FOLDER_RESOURCES + "/" + splitName);
             if (f.exists()) {
                 threads[i] = new ThreadDeploySplit(getNextAvailableMachine(), splitName);
                 es.execute(threads[i]);
@@ -105,7 +105,7 @@ public class Master {
     }
 
     public static String getNextAvailableMachine() throws IOException {
-        List<String> wordList = getWordList(MACHINES_FILENAME);
+        List<String> wordList = getWordList(FOLDER_RESOURCES + "/" + MACHINES_FILENAME);
 
         for (int i = 0; i < wordList.size(); i++) {
             String machineName = wordList.get(i);
