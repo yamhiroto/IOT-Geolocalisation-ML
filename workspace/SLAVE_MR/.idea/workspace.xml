@@ -7,38 +7,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="621b92a5-bd85-446a-96b7-d8625af8e591" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../master/master.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CLEAN_MR/.idea/$PRODUCT_WORKSPACE_FILE$" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CLEAN_MR/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CLEAN_MR/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CLEAN_MR/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CLEAN_MR/.idea/kotlinc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CLEAN_MR/.idea/libraries/KotlinJavaRuntime__2_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CLEAN_MR/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CLEAN_MR/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CLEAN_MR/.idea/sbt.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CLEAN_MR/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CLEAN_MR/CLEAN_MR.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CLEAN_MR/machines_test.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CLEAN_MR/out/production/CLEAN_MR/CLEAN_MR.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CLEAN_MR/out/production/CLEAN_MR/MyThread.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CLEAN_MR/src/CLEAN_MR.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CLEAN_MR/src/MyThread.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../DEPLOY_MR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DEPLOY_MR/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DEPLOY_MR/out/production/DEPLOY_MR/DEPLOY_MR.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DEPLOY_MR/out/production/DEPLOY_MR/MyThread.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../MASTER_MR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MASTER_MR/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MASTER_MR/out/production/MapReduceFromScratch/MASTER_MR.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MASTER_MR/out/production/MapReduceFromScratch/META-INF/MapReduceFromScratch.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MASTER_MR/out/production/MapReduceFromScratch/ThreadDeploySplit.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MASTER_MR/out/production/MapReduceFromScratch/ThreadMap.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MASTER_MR/out/production/MapReduceFromScratch/ThreadProcessBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MASTER_MR/out/production/MapReduceFromScratch/ThreadShuffle.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SLAVE_MR/SLAVE_MR.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SLAVE_MR/SLAVE_MR.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/.idea/$PRODUCT_WORKSPACE_FILE$" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/.idea/kotlinc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/.idea/libraries/KotlinJavaRuntime.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/.idea/sbt.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/MapReduceFromScratch.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/S0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/S1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/S2.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/machines_test.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/out/production/MapReduceFromScratch/MASTER_MR.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/out/production/MapReduceFromScratch/MyThread.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/src/MASTER_MR.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backup/MASTER_MR_3110_split_map_seq/src/ThreadProcessBuilder.java" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
