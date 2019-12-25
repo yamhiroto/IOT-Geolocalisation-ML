@@ -49,8 +49,7 @@ public class ThreadShuffle implements Runnable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        for (int i = 0; i < myThread.getQueue().size(); i++) {
-            String mapFileName = "UM" + i + ".txt";
+        for (String mapFileName : myThread.getQueue()) {
             ProcessBuilder processBuilder2 = new ProcessBuilder(MASTER_MR.SSH_COMMAND, _machineName, "java", "-jar",
                     MASTER_MR.FOLDER_NAME_TMP + MASTER_MR.FOLDER_NAME_PERSO + "/" + MASTER_MR.SLAVE_FILENAME,
                     "1", MASTER_MR.FOLDER_NAME_TMP + MASTER_MR.FOLDER_NAME_PERSO + MASTER_MR.FOLDER_NAME_MAPS + "/" + mapFileName);

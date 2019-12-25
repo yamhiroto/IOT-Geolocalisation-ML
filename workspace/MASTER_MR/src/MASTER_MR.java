@@ -31,11 +31,10 @@ public class MASTER_MR {
     public static final String LS_COMMAND = "ls";
     public static List<String> usedMachines = new ArrayList<>();
     public static final String MACHINES_FILENAME="machines_test.txt";
-    public static final int nbSplitFiles = 3;
+    public static final int nbSplitFiles = 3; // TODO: should be found with number of files
 
     public static void main(String[] args) throws Exception {
 
-/***
         System.out.println("*** Split deployment started. ***");
         split_deploy_MR();
         usedMachines.clear();
@@ -45,8 +44,6 @@ public class MASTER_MR {
         map_MR();
         usedMachines.clear();
         System.out.println("*** Map finished. ***");
-
- ***/
 
         System.out.println("*** Shuffle started. ***");
         shuffle_MR();
@@ -66,7 +63,7 @@ public class MASTER_MR {
         }
         es.shutdown();
         if (es.awaitTermination(1, TimeUnit.MINUTES)) {
-            System.out.println(MACHINES_FILENAME + " sent on all machines.");
+            System.out.println("All shuffle threads terminated.");
         }
     }
 
