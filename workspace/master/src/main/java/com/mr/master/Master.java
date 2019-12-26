@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.text.DecimalFormat;
 
 /***
  * @author gsavoure
@@ -39,26 +40,44 @@ public class Master {
 
     public static void main(String[] args) throws Exception {
 
+        long startTimeSplit = System.nanoTime();
         System.out.println("*** Split deployment started. ***");
         split_deploy_MR();
         usedMachines.clear();
         System.out.println("*** Split deployment finished. ***");
+        long endTimeSplit = System.nanoTime();
 
+        long startTimeMap = System.nanoTime();
         System.out.println("*** Map started. ***");
         map_MR();
         usedMachines.clear();
         System.out.println("*** Map finished. ***");
+        long endTimeMap = System.nanoTime();
 
+        long startTimeShuffle = System.nanoTime();
         System.out.println("*** Shuffle started. ***");
         shuffle_MR();
         usedMachines.clear();
         System.out.println("*** Shuffle finished. ***");
+        long endTimeShuffle = System.nanoTime();
 
+        long startTimeReduce = System.nanoTime();
         System.out.println("*** Reduce started. ***");
         reduce_MR();
         usedMachines.clear();
         System.out.println("*** Reduce finished. ***");
+        long endTimeReduce = System.nanoTime();
 
+        System.out.println("Split running time: " + formatElapsedTime(startTimeSplit, endTimeSplit));
+        System.out.println("Map running time: " + formatElapsedTime(startTimeMap, endTimeMap));
+        System.out.println("Shuffle running time: " + formatElapsedTime(startTimeShuffle, endTimeShuffle));
+        System.out.println("Reduce running time: " + formatElapsedTime(startTimeReduce, endTimeReduce));
+
+    }
+
+    private static String formatElapsedTime(long startTime, long endTime) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format((double) (endTime - startTime) / 1_000_000_000) + "s";
     }
 
     private static void reduce_MR() throws IOException, InterruptedException {
