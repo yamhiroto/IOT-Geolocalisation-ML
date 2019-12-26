@@ -34,7 +34,7 @@ public class Master {
     public static final String HOME_FOLDER = "/home/savoga";
     public static final String LS_COMMAND = "ls";
     public static List<String> usedMachines = new ArrayList<>();
-    public static final String MACHINES_FILENAME="machines_test.txt";
+    public static final String MACHINES_FILENAME = "machines_test.txt";
     public static final int nbSplitFiles = 3; // TODO: should be found with number of files
 
     public static void main(String[] args) throws Exception {
@@ -51,16 +51,38 @@ public class Master {
 
         System.out.println("*** Shuffle started. ***");
         shuffle_MR();
+        usedMachines.clear();
         System.out.println("*** Shuffle finished. ***");
 
+        System.out.println("*** Reduce started. ***");
+        reduce_MR();
+        usedMachines.clear();
+        System.out.println("*** Reduce finished. ***");
+
+    }
+
+    private static void reduce_MR() throws IOException, InterruptedException {
+        ExecutorService es = Executors.newCachedThreadPool();
+        ThreadReduce[] threads = new ThreadReduce[20];
+        String machineName;
+        int i = 0;
+        while ((machineName = getNextAvailableMachine()) != null) {
+            threads[i] = new ThreadReduce(machineName);
+            es.execute(threads[i]);
+            i++;
+        }
+        es.shutdown();
+        if (es.awaitTermination(1, TimeUnit.MINUTES)) {
+            System.out.println("All reduce threads terminated.");
+        }
     }
 
     private static void shuffle_MR() throws IOException, InterruptedException {
         ExecutorService es = Executors.newCachedThreadPool();
         ThreadShuffle[] threads = new ThreadShuffle[20];
         String machineName;
-        int i =0;
-        while((machineName = getNextAvailableMachine()) != null){
+        int i = 0;
+        while ((machineName = getNextAvailableMachine()) != null) {
             threads[i] = new ThreadShuffle(machineName);
             es.execute(threads[i]);
             i++;

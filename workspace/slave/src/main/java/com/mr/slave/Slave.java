@@ -19,6 +19,7 @@ public class Slave {
     public static final String FOLDER_NAME_TMP = "/tmp";
     public static final String FOLDER_NAME_MAPS = "/maps";
     public static final String FOLDER_NAME_SHUFFLES = "/shuffles";
+    public static final String FOLDER_NAME_REDUCES = "/reduces";
     public static final String FOLDER_NAME_SHUFFLESRECEIVED = "/shufflesreceived";
     public static final String FOLDER_NAME_PERSO = "/savoga";
     //public static final String FOLDER_NAME_PERSO = "/gsavoure";
@@ -39,8 +40,7 @@ public class Slave {
 
         switch (args[0]) {
 
-            case "0":
-                // *** MAP: Write the UM file ***
+            case "0": // *** MAP: Write the UM file ***
 
                 int dotIndex = args[1].indexOf('.');
                 String splitNb = args[1].substring(dotIndex - 1, dotIndex);
@@ -48,21 +48,16 @@ public class Slave {
                 Path mapFile = Paths.get(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_MAPS + "/UM" + splitNb + ".txt");
 
                 List<String> contentSplitFile = Files.readAllLines(Paths.get(args[1]));
-                Map<String, Integer> mapOccurences = new TreeMap<>();
                 List<String> listOccurences = new ArrayList<>();
 
                 while (!folderExist(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_MAPS)) {
-                    ProcessBuilder processBuilder = new ProcessBuilder(FOLDER_CREATION_COMMAND, "-p", FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_MAPS);
-                    // TODO: replace ProcessBuilder with FileWriter
-                    System.out.println("Folder /maps created");
-                    ThreadProcessBuilder threadProcessBuilderDir = startThread(processBuilder);
-                    Thread.sleep(2000); // let some time for the folder to be created
+                    createDirectory(FOLDER_NAME_MAPS);
+                    Thread.sleep(1000); // let some time for the folder to be created
                 }
 
                 for (String line : contentSplitFile) {
                     String[] words = line.split(" ");
                     for (String word : words) {
-                        //mapOccurences.put(word, 1);
                         listOccurences.add(word + " 1");
                     }
                 }
@@ -70,14 +65,60 @@ public class Slave {
                 System.out.println("UM" + splitNb + " created in " + FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_MAPS);
                 break;
 
-            case "1":
-                // *** SHUFFLE: Write the hash files and send them to different machines ***
+            case "1": // *** SHUFFLE: Write the hash files and send them to different machines ***
                 List machineList = getMachineList();
                 int nbMachines = machineList.size();
                 System.out.println(nbMachines + " machines will be used");
                 createFilesWithHashCode(args[1]); // Parameter is the Umap file
                 sendFilesOnMachines(machineList, nbMachines);
                 break;
+
+            case "2": // *** REDUCE: Combine all shuffle files with same hashcode
+                while (!folderExist(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_REDUCES)) {
+                    createDirectory(FOLDER_NAME_REDUCES);
+                    Thread.sleep(1000); // let some time for the folder to be created
+                }
+                List<String> fileNameShuffleList = listFilesFromPath(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLESRECEIVED);
+                for (String fileNameShuffle : fileNameShuffleList) {
+                    String hashCode = fileNameShuffle.split("-")[0];
+                    List<String> contentMapFileShuffle = Files.readAllLines(Paths.get(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLESRECEIVED + "/" + fileNameShuffle));
+                    for (String shuffleLine : contentMapFileShuffle) {
+                        String[] shuffleTab = shuffleLine.split(" ");
+                        String wordShuffle = shuffleTab[0];
+                        if ("".equalsIgnoreCase(shuffleLine)) {
+                            continue;
+                        }
+                        if (!folderExist(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_REDUCES + "/" + hashCode + ".txt")) {
+                            System.out.println("Creating new reduce file for word " + wordShuffle);
+                            createOrAppendReduceFile(hashCode, wordShuffle, "1");
+                        } else {
+                            List<String> contentMapFileReduce = Files.readAllLines(Paths.get(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_REDUCES + "/" + hashCode + ".txt"));
+                            String[] reduceLine = contentMapFileReduce.get(0).split(" ");
+                            String wordReduce = reduceLine[0];
+                            int countReduce = Integer.parseInt(reduceLine[1]);
+                            createOrAppendReduceFile(hashCode, wordReduce, String.valueOf(countReduce + 1));
+                        }
+                    }
+                }
+                break;
+        }
+    }
+
+    private static void createOrAppendReduceFile(String hashCode, String word, String count) throws IOException {
+        File fileText = new File(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_REDUCES + "/" + hashCode + ".txt");
+        FileOutputStream is = new FileOutputStream(fileText);
+        OutputStreamWriter osw = new OutputStreamWriter(is);
+        Writer w = new BufferedWriter(osw);
+        w.append(word + " " + count);
+        w.append("\n");
+        w.close();
+    }
+
+    private static void createDirectory(String folderName) {
+        File fileText = new File(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + folderName);
+        boolean creationSuccess = fileText.mkdirs();
+        if(creationSuccess) {
+            System.out.println("Folder " + folderName + " created successfully.");
         }
     }
 
@@ -115,10 +156,8 @@ public class Slave {
 
     private static void createFilesWithHashCode(String arg) throws InterruptedException, IOException {
         while (!folderExist(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLES)) {
-            ProcessBuilder processBuilder2 = new ProcessBuilder(FOLDER_CREATION_COMMAND, "-p", FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLES);
-            System.out.println("Folder /shuffles created");
-            ThreadProcessBuilder threadProcessBuilderDir = startThread(processBuilder2);
-            Thread.sleep(2000); // let some time for the folder to be created
+            createDirectory(FOLDER_NAME_SHUFFLES);
+            Thread.sleep(1000); // let some time for the folder to be created
         }
 
         List<String> contentMapFile = Files.readAllLines(Paths.get(arg));

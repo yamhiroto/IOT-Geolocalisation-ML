@@ -12,10 +12,10 @@ public class ThreadMap implements Runnable {
 
     private void process() {
 
-        ProcessBuilder processBuilder2 = new ProcessBuilder(Master.SSH_COMMAND, _machineName, "java", "-jar",
+        ProcessBuilder processBuilder = new ProcessBuilder(Master.SSH_COMMAND, _machineName, "java", "-jar",
                 Master.FOLDER_NAME_TMP + Master.FOLDER_NAME_PERSO + "/" + Master.SLAVE_FILENAME,
                 "0", Master.FOLDER_NAME_TMP + Master.FOLDER_NAME_PERSO + Master.FOLDER_NAME_SPLITS + "/" + _splitName);
-        Master.startThreadProcessBuilder(processBuilder2);
+        Master.startThreadProcessBuilder(processBuilder);
         // @Todo: handle error during jar execution
         System.out.println("map executed on machine " + _machineName);
 
