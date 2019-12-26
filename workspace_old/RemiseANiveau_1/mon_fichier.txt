@@ -1,8 +1,0 @@
-Alice 15
-Bertrand 12
-Louis 17.5
-Pierre 13
-Bertrand 16
-Michael 7
-Emma 11
-Emma 18
