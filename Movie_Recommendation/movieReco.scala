@@ -60,14 +60,22 @@ val df_grades_2 = df_grades.join(df_movies_3,df_grades("movieId")===df_movies_3(
 df_grades_2.show(10, false)
 // --> We note some similarities in the grade order with movies appearing in using both grading formulas including The Godfather, The Shawshank Redemption and Fight Club
 
-// ******* TO BE INCLUDED IN A FUNCTION *********
+// Similarity
+// Function to get movies rated by x and y
+def moviesInter(df: DataFrame, user_x: String, user_y: String): DataFrame = {
+    val df_ratings_x=df.filter($"userId"===user_x).select($"movieId")
+    val df_ratings_y=df.filter($"userId"===user_y).select($"movieId")
+    
+    val df_movies_inter=df_ratings_y.intersect(df_ratings_x) // movies intersection
 
-// Get the intersection to get the movie set of x and y
-val df_ratings_x=df_ratings_4.filter($"userId"==="1")
-val df_ratings_y=df_ratings_4.filter($"userId"==="2")
-df_ratings_y.intersect(df_ratings_x)
+    val df_ratings_x_filtered=df.filter($"userId"===user_x).filter($"movieId".isin(df_movies_inter.select($"movieId").collect.map(_(0)).toList:_*)).toDF
+    val df_ratings_y_filtered=df.filter($"userId"===user_y).filter($"movieId".isin(df_movies_inter.select($"movieId").collect.map(_(0)).toList:_*)).toDF
+    val df_x=df_ratings_x_filtered.withColumnRenamed("rating","ratingX").drop("timestamp").drop("userId")
+    val df_y=df_ratings_y_filtered.withColumnRenamed("rating","ratingY").drop("timestamp").drop("userId")
+    df_x.join(df_y, Seq("movieId"))
+}
 
 // Get the variance for the x user
-df_ratings_x.select($"rating").groupBy().agg(stddev($"rating")).take(1)(0).getDouble(0)
+//df_ratings_x.select($"rating").groupBy().agg(stddev($"rating")).take(1)(0).getDouble(0)
 
-// ***********************************************
+moviesInter(df_ratings_4,"5","10")
