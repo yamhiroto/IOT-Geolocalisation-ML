@@ -62,20 +62,38 @@ df_grades_2.show(10, false)
 
 // Similarity
 // Function to get movies rated by x and y
-def moviesInter(df: DataFrame, user_x: String, user_y: String): DataFrame = {
-    val df_ratings_x=df.filter($"userId"===user_x).select($"movieId")
-    val df_ratings_y=df.filter($"userId"===user_y).select($"movieId")
+def moviesInter(df_ratings: DataFrame, user_x: String, user_y: String): DataFrame = {
+    val df_ratings_x=df_ratings.filter($"userId"===user_x).select($"movieId")
+    val df_ratings_y=df_ratings.filter($"userId"===user_y).select($"movieId")
     
     val df_movies_inter=df_ratings_y.intersect(df_ratings_x) // movies intersection
 
-    val df_ratings_x_filtered=df.filter($"userId"===user_x).filter($"movieId".isin(df_movies_inter.select($"movieId").collect.map(_(0)).toList:_*)).toDF
-    val df_ratings_y_filtered=df.filter($"userId"===user_y).filter($"movieId".isin(df_movies_inter.select($"movieId").collect.map(_(0)).toList:_*)).toDF
-    val df_x=df_ratings_x_filtered.withColumnRenamed("rating","ratingX").drop("timestamp").drop("userId")
-    val df_y=df_ratings_y_filtered.withColumnRenamed("rating","ratingY").drop("timestamp").drop("userId")
+    val df_ratings_x_filtered=df_ratings.filter($"userId"===user_x).filter($"movieId".isin(df_movies_inter.select($"movieId").collect.map(_(0)).toList:_*)).toDF
+    val df_ratings_y_filtered=df_ratings.filter($"userId"===user_y).filter($"movieId".isin(df_movies_inter.select($"movieId").collect.map(_(0)).toList:_*)).toDF
+    val df_x=df_ratings_x_filtered.withColumnRenamed("rating","rating" + user_x).drop("timestamp").drop("userId")
+    val df_y=df_ratings_y_filtered.withColumnRenamed("rating","rating" + user_y).drop("timestamp").drop("userId")
     df_x.join(df_y, Seq("movieId"))
 }
 
-// Get the variance for the x user
-//df_ratings_x.select($"rating").groupBy().agg(stddev($"rating")).take(1)(0).getDouble(0)
+def simil(df_inter: DataFrame): Double = {
+    var error=false
+    var res = 0.0
+    try {
+        val col_name_x=df_inter.select(df_inter.columns.slice(1,2).map(name=>col(name)):_*).columns.take(1)(0)
+        val col_name_y=df_inter.select(df_inter.columns.slice(2,3).map(name=>col(name)):_*).columns.take(1)(0)
+        val corr_x_y = df_inter.groupBy().agg(corr(col_name_x, col_name_y)).collect().take(1)(0) // Note: negative correlation indicates that when one variable increases, the other one decreases
+        if(corr_x_y.get(0) != null) {
+            res=corr_x_y.getDouble(0) * Math.log(1+df_inter.count) // (base exp logarithm)
+        }
+    } catch {
+        case x: AnalysisException => error=true // in case two columns have same name, an error is raised
+    }
+    res
+}
 
-moviesInter(df_ratings_4,"5","10")
+
+// !!! df_ratings_4.select("userId").dropDuplicates.map(user => simil(moviesInter(df_ratings_4,user.getString(0),"1"))).show(5) !!!
+// --> renvoie un NPE car on ne peut pas utiliser un DF dans une transformation (ici un map)
+// --> raison: les opérations d'un DF se font sur le master alors qu'une UDF utilise les workers
+// => S'aider de la correction du prof: commencer avec un groupByKey: df_ratings_4.map(row => (row.getString(0),(row.getString(1),row.getFloat(2)))).rdd.groupByKey.collect
+
