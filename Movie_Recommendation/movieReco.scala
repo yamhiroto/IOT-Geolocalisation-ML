@@ -8,6 +8,8 @@
 // Import data
 val df_ratings = spark.read.option("header", false).csv("ml-latest-small/ratings.csv")
 val df_movies = spark.read.option("header", false).csv("ml-latest-small/movies.csv")
+// Note: spark is the SparkSession allowing us to use the DataFrame API
+// SparkSession is the only entry point for all API
 
 // Removing header of the csv file
 val header=df_ratings.first
@@ -75,7 +77,7 @@ def moviesInter(df_ratings: DataFrame, user_x: String, user_y: String): DataFram
     df_x.join(df_y, Seq("movieId"))
 }
 
-def simil(df_inter: DataFrame): Double = {
+def simil(df_inter: DataFrame): Double = { // simil(list lx, list ly)
     var error=false
     var res = 0.0
     try {
@@ -95,5 +97,35 @@ def simil(df_inter: DataFrame): Double = {
 // !!! df_ratings_4.select("userId").dropDuplicates.map(user => simil(moviesInter(df_ratings_4,user.getString(0),"1"))).show(5) !!!
 // --> renvoie un NPE car on ne peut pas utiliser un DF dans une transformation (ici un map)
 // --> raison: les opérations d'un DF se font sur le master alors qu'une UDF utilise les workers
-// => S'aider de la correction du prof: commencer avec un groupByKey: df_ratings_4.map(row => (row.getString(0),(row.getString(1),row.getFloat(2)))).rdd.groupByKey.collect
+
+
+// Solution: utiliser une autre structure de données que le DataFrame
+// => S'aider de la correction du prof: commencer avec un groupByKey: 
+val rdd_ratings=df_ratings_4.map(row => (row.getString(0),(row.getString(1),row.getFloat(2)))).rdd.groupByKey
+val user1 = rdd_ratings.lookup("1")
+
+def simil2(movieRating1:Seq[Iterable[(String, Float)]], movieRating2:Seq[Iterable[(String, Float)]]):Double = {
+    val movieRating1:Map[String,Float] =  movieRating1.map(iter => iter.toMap.map(user => ((user._1),user._2))).take(1)(0) // erreur de type
+    return 0.0
+}
+
+
+
+
+// Solution SEB-like
+// Add column of tuples
+
+val dfRatingList = df_ratings_4.groupBy("userId").agg(collect_list("movieId").alias("userMovies"),collect_list("rating").alias("userRatings"))
+
+def movieToRating(warr1: WrappedArray[Any],warr2: WrappedArray[Any]): Map[String, Float] = {
+    val arr1 = warr1.asInstanceOf[WrappedArray[String]].toArray  
+    val arr2 = warr2.asInstanceOf[WrappedArray[Float]].toArray
+    (arr1 zip arr2).toMap
+}
+val movieToRatingUdf = udf(movieToRating _)
+val dfRatingMap = dfRatingList.withColumn("moviesToRatings",movieToRatingUdf($"userMovies",$"userRatings"))
+
+// Get Map for user 1
+val t = dfRatingMap.filter($"userId"==="1").select("moviesToRatings").collect.map(_.toSeq).flatten
+val mapUser1 = t(0).asInstanceOf[Map[String, Float]]
 
