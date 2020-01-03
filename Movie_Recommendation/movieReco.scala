@@ -114,18 +114,50 @@ def simil2(movieRating1:Seq[Iterable[(String, Float)]], movieRating2:Seq[Iterabl
 
 // Solution SEB-like
 // Add column of tuples
+val dfRatingWithList = df_ratings_4.groupBy("userId").agg(collect_list("movieId").alias("userMovies"),collect_list("rating").alias("userRatings"))
 
-val dfRatingList = df_ratings_4.groupBy("userId").agg(collect_list("movieId").alias("userMovies"),collect_list("rating").alias("userRatings"))
-
+import scala.collection.mutable.WrappedArray
 def movieToRating(warr1: WrappedArray[Any],warr2: WrappedArray[Any]): Map[String, Float] = {
     val arr1 = warr1.asInstanceOf[WrappedArray[String]].toArray  
     val arr2 = warr2.asInstanceOf[WrappedArray[Float]].toArray
     (arr1 zip arr2).toMap
 }
 val movieToRatingUdf = udf(movieToRating _)
-val dfRatingMap = dfRatingList.withColumn("moviesToRatings",movieToRatingUdf($"userMovies",$"userRatings"))
+val dfRatingWithMap = dfRatingWithList.withColumn("moviesToRatings",movieToRatingUdf($"userMovies",$"userRatings"))
 
 // Get Map for user 1
-val t = dfRatingMap.filter($"userId"==="1").select("moviesToRatings").collect.map(_.toSeq).flatten
-val mapUser1 = t(0).asInstanceOf[Map[String, Float]]
+val t = dfRatingWithMap.filter($"userId"==="1").select("moviesToRatings").collect.map(_.toSeq).flatten
+val MAP_USER = t(0).asInstanceOf[Map[String, Float]] // will be used in UDF functions (TODO: make it as a parameter)
+
+// Compute Pearson correlation
+def simil(mapUserCol: Map[String, Float]): Option[Double] = {
+
+        // find common movies
+        val listOfCommonMovies = (MAP_USER.keySet & mapUserCol.keySet).toSeq
+        val n = listOfCommonMovies.size
+        if (n == 0) return Some(0.0)
+        if (MAP_USER == mapUserCol) return Some(0.0)
+
+        // filter the maps with those movies
+        val mapUserCommonMoviesRatings = MAP_USER.filterKeys(movie => listOfCommonMovies.contains(movie))
+        val mapUserColCommonMoviesRatings = mapUserCol.filterKeys(movie => listOfCommonMovies.contains(movie))
+
+        // sum ratings
+        val sum1 = mapUserCommonMoviesRatings.values.sum
+        val sum2 = mapUserColCommonMoviesRatings.values.sum
+
+        // sum ratings squared
+        val sum1Sq = mapUserCommonMoviesRatings.values.foldLeft(0.0)(_ + Math.pow(_, 2))
+        val sum2Sq = mapUserColCommonMoviesRatings.values.foldLeft(0.0)(_ + Math.pow(_, 2))
+
+        // sum up the products
+        val pSum = listOfCommonMovies.foldLeft(0.0)((accum, element) => accum + mapUserCommonMoviesRatings(element) * mapUserColCommonMoviesRatings(element))
+
+        // compute Pearson score with log factor
+        val numerator = pSum - (sum1*sum2/n)
+        val denominator = Math.sqrt( (sum1Sq-Math.pow(sum1,2)/n) * (sum2Sq-Math.pow(sum2,2)/n))
+        if (denominator == 0) Some(0.0) else Some(numerator/denominator*Math.log(1+n))
+}
+val similUdf = udf(simil _)
+val dfRatingWithCorrel = dfRatingWithMap.withColumn("similWithUser1",similUdf($"moviesToRatings"))
 
