@@ -5,6 +5,7 @@
 
 // --> depuis spark-2.3.4-bin-hadoop2.7/bin:
 
+// *** PREPROCESSING ***
 // Import data
 val df_ratings = spark.read.option("header", false).csv("ml-latest-small/ratings.csv")
 val df_movies = spark.read.option("header", false).csv("ml-latest-small/movies.csv")
@@ -28,6 +29,7 @@ val df_top_movies = df_ratings_3.groupBy($"_c1")
 .sort($"rating_avg".desc)
 .limit(10)
 
+// *** BEST MOVIES ***
 // Display name of the best 10 movies
 val df_top_movies_2 = df_top_movies.join(df_movies_2, df_top_movies("_c1")===df_movies_2("_c0")).show(false)
 // Result not really interesting because it shows movies that have been rated only once with 5 stars...
@@ -62,57 +64,7 @@ val df_grades_2 = df_grades.join(df_movies_3,df_grades("movieId")===df_movies_3(
 df_grades_2.show(10, false)
 // --> We note some similarities in the grade order with movies appearing in using both grading formulas including The Godfather, The Shawshank Redemption and Fight Club
 
-// Similarity
-// Function to get movies rated by x and y
-def moviesInter(df_ratings: DataFrame, user_x: String, user_y: String): DataFrame = {
-    val df_ratings_x=df_ratings.filter($"userId"===user_x).select($"movieId")
-    val df_ratings_y=df_ratings.filter($"userId"===user_y).select($"movieId")
-    
-    val df_movies_inter=df_ratings_y.intersect(df_ratings_x) // movies intersection
-
-    val df_ratings_x_filtered=df_ratings.filter($"userId"===user_x).filter($"movieId".isin(df_movies_inter.select($"movieId").collect.map(_(0)).toList:_*)).toDF
-    val df_ratings_y_filtered=df_ratings.filter($"userId"===user_y).filter($"movieId".isin(df_movies_inter.select($"movieId").collect.map(_(0)).toList:_*)).toDF
-    val df_x=df_ratings_x_filtered.withColumnRenamed("rating","rating" + user_x).drop("timestamp").drop("userId")
-    val df_y=df_ratings_y_filtered.withColumnRenamed("rating","rating" + user_y).drop("timestamp").drop("userId")
-    df_x.join(df_y, Seq("movieId"))
-}
-
-def simil(df_inter: DataFrame): Double = { // simil(list lx, list ly)
-    var error=false
-    var res = 0.0
-    try {
-        val col_name_x=df_inter.select(df_inter.columns.slice(1,2).map(name=>col(name)):_*).columns.take(1)(0)
-        val col_name_y=df_inter.select(df_inter.columns.slice(2,3).map(name=>col(name)):_*).columns.take(1)(0)
-        val corr_x_y = df_inter.groupBy().agg(corr(col_name_x, col_name_y)).collect().take(1)(0) // Note: negative correlation indicates that when one variable increases, the other one decreases
-        if(corr_x_y.get(0) != null) {
-            res=corr_x_y.getDouble(0) * Math.log(1+df_inter.count) // (base exp logarithm)
-        }
-    } catch {
-        case x: AnalysisException => error=true // in case two columns have same name, an error is raised
-    }
-    res
-}
-
-
-// !!! df_ratings_4.select("userId").dropDuplicates.map(user => simil(moviesInter(df_ratings_4,user.getString(0),"1"))).show(5) !!!
-// --> renvoie un NPE car on ne peut pas utiliser un DF dans une transformation (ici un map)
-// --> raison: les opérations d'un DF se font sur le master alors qu'une UDF utilise les workers
-
-
-// Solution: utiliser une autre structure de données que le DataFrame
-// => S'aider de la correction du prof: commencer avec un groupByKey: 
-val rdd_ratings=df_ratings_4.map(row => (row.getString(0),(row.getString(1),row.getFloat(2)))).rdd.groupByKey
-val user1 = rdd_ratings.lookup("1")
-
-def simil2(movieRating1:Seq[Iterable[(String, Float)]], movieRating2:Seq[Iterable[(String, Float)]]):Double = {
-    val movieRating1:Map[String,Float] =  movieRating1.map(iter => iter.toMap.map(user => ((user._1),user._2))).take(1)(0) // erreur de type
-    return 0.0
-}
-
-
-
-
-// Solution SEB-like
+// *** SIMILARITY ***
 // Add column of tuples
 val dfRatingWithList = df_ratings_4.groupBy("userId").agg(collect_list("movieId").alias("userMovies"),collect_list("rating").alias("userRatings"))
 
@@ -132,7 +84,7 @@ val MAP_USER = t(0).asInstanceOf[Map[String, Float]] // will be used in UDF func
 // Compute Pearson correlation
 def simil(mapUserCol: Map[String, Float]): Option[Double] = {
 
-        // find common movies
+        // Common movies
         val listOfCommonMovies = (MAP_USER.keySet & mapUserCol.keySet).toSeq
         val n = listOfCommonMovies.size
         if (n == 0) return Some(0.0)
@@ -142,22 +94,27 @@ def simil(mapUserCol: Map[String, Float]): Option[Double] = {
         val mapUserCommonMoviesRatings = MAP_USER.filterKeys(movie => listOfCommonMovies.contains(movie))
         val mapUserColCommonMoviesRatings = mapUserCol.filterKeys(movie => listOfCommonMovies.contains(movie))
 
-        // sum ratings
+        // sum
         val sum1 = mapUserCommonMoviesRatings.values.sum
         val sum2 = mapUserColCommonMoviesRatings.values.sum
 
-        // sum ratings squared
+        // sum squared
         val sum1Sq = mapUserCommonMoviesRatings.values.foldLeft(0.0)(_ + Math.pow(_, 2))
         val sum2Sq = mapUserColCommonMoviesRatings.values.foldLeft(0.0)(_ + Math.pow(_, 2))
 
-        // sum up the products
+        // sum product
         val pSum = listOfCommonMovies.foldLeft(0.0)((accum, element) => accum + mapUserCommonMoviesRatings(element) * mapUserColCommonMoviesRatings(element))
 
-        // compute Pearson score with log factor
+        // Pearson score with log factor
+        // Note: König-Huygens Theorem is used for calculus simplification
         val numerator = pSum - (sum1*sum2/n)
         val denominator = Math.sqrt( (sum1Sq-Math.pow(sum1,2)/n) * (sum2Sq-Math.pow(sum2,2)/n))
-        if (denominator == 0) Some(0.0) else Some(numerator/denominator*Math.log(1+n))
+        if (denominator == 0) Some(0.0) else Some(numerator/denominator*Math.log(1+n)) // see BEST MOVIES section for log explanation
 }
 val similUdf = udf(simil _)
 val dfRatingWithCorrel = dfRatingWithMap.withColumn("similWithUser1",similUdf($"moviesToRatings"))
+
+// Score for user 3
+dfRatingWithCorrel.select("userId","similWithUser1").filter($"userId"==="3").show(5)
+
 
