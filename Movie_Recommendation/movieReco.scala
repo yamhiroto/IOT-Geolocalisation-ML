@@ -117,4 +117,15 @@ val dfRatingWithCorrel = dfRatingWithMap.withColumn("similWithUser1",similUdf($"
 // Score for user 3
 dfRatingWithCorrel.select("userId","similWithUser1").filter($"userId"==="3").show(5)
 
+// *** GRADE OF A MOVIE ***
+val dfRatingCorrel = dfRatingWithCorrel.select("userId","moviesToRatings","similWithUser1")
+
+def gradeForMovie(movie:String): Double = {
+    // Filter
+    dfRatingCorrel.filter($"moviesToRatings".getItem(movie).isNotNull) // IMPOSSIBLE: un DataFrame "externe" ne peut pas être utilisé dans une UDF!!
+    0.0
+}
+
+// Alpha 
+val alpha = dfRatingCorrel.agg(sum($"similWithUser1")).head.getDouble(0) / dfRatingCorrel.count
 
