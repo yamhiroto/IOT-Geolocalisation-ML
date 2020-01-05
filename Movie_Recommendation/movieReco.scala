@@ -1,9 +1,7 @@
-// import implicits ...??
-
 // https://grouplens.org/datasets/movielens/ --> ml-latest-small
 // Data collected from the MovieLens (web-based recommender system)
 
-// --> depuis spark-2.3.4-bin-hadoop2.7/bin:
+// --> from spark-2.3.4-bin-hadoop2.7/bin:
 
 // *** PREPROCESSING ***
 // Import data
@@ -49,10 +47,8 @@ val df_movies_3=df_movies_2
 // Better ordered list
 // grade_formula_1 --> the numerator is increasing higher that the denominator when the number of grades increases
 // => it allows to penalise the movies that has only few grades
-// Question: why +1 in the denominator??
 // grade_formula_2 --> similar to the previous formula, but we use the logarithm in order to penalise movies
 // with few grades and harmonize grades of those with many grades
-// df_ratings_3.map(row => (row.getAs[String]("movieId"),(row.getAs[Float]("rating"),1))).show(5)
 val df_temp_1 = df_ratings_4.groupBy("movieId").agg(sum("rating"),count("movieId")).toDF("movieId","sum_ratings","nb_ratings")
 var df_grades = df_temp_1.withColumn("grade_1",$"sum_ratings"/($"nb_ratings"+1))
 df_grades = df_grades.withColumn("grade_2",($"sum_ratings"/($"nb_ratings"))*log($"nb_ratings")) // (base exp logarithm)
@@ -88,7 +84,7 @@ def simil(mapUserCol: Map[String, Float]): Option[Double] = {
         val listOfCommonMovies = (MAP_USER.keySet & mapUserCol.keySet).toSeq
         val n = listOfCommonMovies.size
         if (n == 0) return Some(0.0)
-        if (MAP_USER == mapUserCol) return Some(0.0)
+        if (MAP_USER == mapUserCol) return Some(0.0) // when one user is compared with himself
 
         // filter the maps with those movies
         val mapUserCommonMoviesRatings = MAP_USER.filterKeys(movie => listOfCommonMovies.contains(movie))
@@ -109,23 +105,45 @@ def simil(mapUserCol: Map[String, Float]): Option[Double] = {
         // Note: König-Huygens Theorem is used for calculus simplification
         val numerator = pSum - (sum1*sum2/n)
         val denominator = Math.sqrt( (sum1Sq-Math.pow(sum1,2)/n) * (sum2Sq-Math.pow(sum2,2)/n))
-        if (denominator == 0) Some(0.0) else Some(numerator/denominator*Math.log(1+n)) // see BEST MOVIES section for log explanation
+        if (denominator == 0 || numerator < 0) Some(0.0) else Some(numerator/denominator*Math.log(1+n)) // see BEST MOVIES section for log explanation
 }
 val similUdf = udf(simil _)
 val dfRatingWithCorrel = dfRatingWithMap.withColumn("similWithUser1",similUdf($"moviesToRatings"))
 
-// Score for user 3
+// Similarity with user 3
 dfRatingWithCorrel.select("userId","similWithUser1").filter($"userId"==="3").show(5)
 
 // *** GRADE OF A MOVIE ***
 val dfRatingCorrel = dfRatingWithCorrel.select("userId","moviesToRatings","similWithUser1")
 
-def gradeForMovie(movie:String): Double = {
-    // Filter
-    dfRatingCorrel.filter($"moviesToRatings".getItem(movie).isNotNull) // IMPOSSIBLE: un DataFrame "externe" ne peut pas être utilisé dans une UDF!!
-    0.0
-}
-
 // Alpha 
-val alpha = dfRatingCorrel.agg(sum($"similWithUser1")).head.getDouble(0) / dfRatingCorrel.count
+val ALPHA = dfRatingCorrel.agg(sum($"similWithUser1")).head.getDouble(0) / dfRatingCorrel.count
 
+// Explode map and aggregate movies / ratings in arrays
+val dfRatingCorrelExpl = dfRatingCorrel.select(explode($"moviesToRatings"),$"similWithUser1").withColumnRenamed("key","movieId").withColumnRenamed("value","rating")
+val dfRatingCorrelGrouped = dfRatingCorrelExpl.groupBy("movieId").agg(collect_list("rating").alias("ratings"),collect_list("similWithUser1").alias("similarities"))
+
+// Sum product ratings / similarities
+def sumProdRatingSimil(warr1: WrappedArray[Any],warr2: WrappedArray[Any]): Double = {
+
+    val arr1 = warr1.asInstanceOf[WrappedArray[Float]].toArray  
+    val arr2 = warr2.asInstanceOf[WrappedArray[Double]].toArray
+
+    val sumP = (arr1,arr2).zipped.map(_ * _).sum
+    val sumSimil = arr2.sum
+
+    sumP / (0.5 + sumSimil) // We assume ALPHA = 0.5
+
+}
+val sumProdRatingSimilUdf = udf(sumProdRatingSimil _)
+val dfRatingCorrelScore = dfRatingCorrelGrouped.withColumn("score",sumProdRatingSimilUdf($"ratings",$"similarities"))
+
+// 20 recommended movies for user 1
+dfRatingCorrelScore.join(df_movies_3, dfRatingCorrelScore("movieId")===df_movies_3("movieId")).select("title","score").orderBy(desc("score")).show(20)
+
+// 20 recommended movies for user 1 that he/she has not rated
+val dfRatingCorrelGroupedNeverSeen = dfRatingCorrelGrouped.filter(!$"movieId".isin(MAP_USER.keySet.toArray: _*))
+val dfRatingCorrelScoreNeverSeen = dfRatingCorrelGroupedNeverSeen.withColumn("score",sumProdRatingSimilUdf($"ratings",$"similarities"))
+
+dfRatingCorrelScoreNeverSeen.join(df_movies_3, dfRatingCorrelScoreNeverSeen("movieId")===df_movies_3("movieId")).select("title","score").orderBy(desc("score")).show(20)
+// 'The Shawshank Redemption', 'Yojimbo' and 'Harold and Maude' are the three best movies to recommend for user 1
