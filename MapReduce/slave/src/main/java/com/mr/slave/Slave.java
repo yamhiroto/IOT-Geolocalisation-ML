@@ -24,7 +24,7 @@ public class Slave {
     public static final String FOLDER_NAME_PERSO = "/savoga";
     //public static final String FOLDER_NAME_PERSO = "/gsavoure";
     public static final String FOLDER_CREATION_COMMAND = "mkdir";
-    public static final String FILENAME_MACHINES = "machines_test.txt";
+    public static final String FILENAME_MACHINES = "machines.txt";
     public static final String COPY_COMMAND = "scp";
     public static final String HOME_FOLDER = "/home/savoga";
     public static final String SSH_COMMAND = "ssh";
