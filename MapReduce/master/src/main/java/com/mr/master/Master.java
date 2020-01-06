@@ -2,21 +2,20 @@ package com.mr.master;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.text.DecimalFormat;
+import java.util.stream.Stream;
 
 /***
  * @author gsavoure
- *
- * Question 1. STEP 10
- * Question 3 STEP 10
- *
  */
 
 public class Master {
@@ -34,17 +33,20 @@ public class Master {
     public static final String FOLDER_RESOURCES = "src/main/resources";
     public static final String HOME_FOLDER = "/home/savoga";
     public static final String LS_COMMAND = "ls";
+    public static final String INPUT_FILE = "input.txt";
     public static List<String> usedMachines = new ArrayList<>();
-    public static final String MACHINES_FILENAME = "machines_test.txt";
-    public static final int nbSplitFiles = 3; // TODO: should be found with number of files
+    public static final String MACHINES_FILENAME = "machines.txt";
+    public static final int nbSplitFiles = 3;
 
     public static void main(String[] args) throws Exception {
 
+        /***
         long startTimeSplit = System.nanoTime();
-        System.out.println("*** Split deployment started. ***");
+        System.out.println("*** Split started. ***");
+        split_create_MR();
         split_deploy_MR();
         usedMachines.clear();
-        System.out.println("*** Split deployment finished. ***");
+        System.out.println("*** Split finished. ***");
         long endTimeSplit = System.nanoTime();
 
         long startTimeMap = System.nanoTime();
@@ -53,6 +55,7 @@ public class Master {
         usedMachines.clear();
         System.out.println("*** Map finished. ***");
         long endTimeMap = System.nanoTime();
+        ***/
 
         long startTimeShuffle = System.nanoTime();
         System.out.println("*** Shuffle started. ***");
@@ -61,6 +64,7 @@ public class Master {
         System.out.println("*** Shuffle finished. ***");
         long endTimeShuffle = System.nanoTime();
 
+        /***
         long startTimeReduce = System.nanoTime();
         System.out.println("*** Reduce started. ***");
         reduce_MR();
@@ -72,7 +76,28 @@ public class Master {
         System.out.println("Map running time: " + formatElapsedTime(startTimeMap, endTimeMap));
         System.out.println("Shuffle running time: " + formatElapsedTime(startTimeShuffle, endTimeShuffle));
         System.out.println("Reduce running time: " + formatElapsedTime(startTimeReduce, endTimeReduce));
+        ***/
 
+    }
+
+    private static void split_create_MR() throws InterruptedException, IOException {
+        StringBuilder contentBuilder = new StringBuilder();
+        Stream<String> stream = Files.lines(Paths.get(FOLDER_RESOURCES + "/" + INPUT_FILE), StandardCharsets.UTF_8);
+        stream.forEach(s -> contentBuilder.append(s).append(" "));
+        List<String> fileWords = Arrays.asList(contentBuilder.toString().split(" "));
+        int chunkSize = (int) Math.ceil((double) fileWords.size() / nbSplitFiles);
+        Partition p = Partition.ofSize(fileWords, chunkSize);
+
+        ExecutorService es = Executors.newCachedThreadPool();
+        ThreadCreateSplit[] threads = new ThreadCreateSplit[nbSplitFiles];
+        for (int i = 0; i < nbSplitFiles; i++) {
+            threads[i] = new ThreadCreateSplit(p.get(i), i);
+            es.execute(threads[i]);
+        }
+        es.shutdown();
+        if (es.awaitTermination(1, TimeUnit.MINUTES)) {
+            System.out.println("Split files created.");
+        }
     }
 
     private static String formatElapsedTime(long startTime, long endTime) {
