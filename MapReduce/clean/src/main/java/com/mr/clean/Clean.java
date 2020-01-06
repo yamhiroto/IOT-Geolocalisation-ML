@@ -29,7 +29,7 @@ public class Clean {
     public static final String HOME_FOLDER = "/cal/homes/gsavoure/";
 
     public static void main(String[] args) throws IOException {
-        String fileName = FOLDER_RESOURCES + "/machines_test.txt";
+        String fileName = FOLDER_RESOURCES + "/machines.txt";
         List<String> wordList = getWordList(fileName);
 
         for (int i = 0; i < wordList.size(); i++) {
