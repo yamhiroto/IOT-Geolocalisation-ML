@@ -24,7 +24,7 @@ In this project, I've chosen to separate each step in order to be able to measur
 The project is structured in different programs:
 
 ##### Slave
-The Slave is responsible for computing three steps on the machine it is launched.
+The Slave is responsible for computing three steps on the machine it is launched: map, shuffle and reduce.
 ##### Master
 This is the main program used to launched the execution of splits, slave (map, shuffle, reduce) and concatenation of the results.
 It has one main class Master.java where the main method is. It is where all steps are executed.
@@ -32,7 +32,7 @@ All steps are executed using multiple threads: I've chosen to create a class for
 _ThreadCreateSplit_, _ThreadDeploySplit_, _ThreadMap_, _ThreadShuffle_ and _ThreadReduce_. The _Partition_ class is used to split the initial file (first step). _ThreadProcessBuilder_ is the class allowing to send linux command in ssh.
 
 ##### Clean
-THe Clean removes all MapReduce files on the remotes machines. It simply loops on the machine list and remove the folder /savoga where all files are stored during the MapReduce.
+The Clean removes all MapReduce files on the remotes machines. It simply loops on the machine list and remove the folder /savoga where all files are stored during the MapReduce.
 ##### Deploy
 This program send the Slave.jar on the different machines: it loops on the machine list and copy the file from local computer to remote ones.
 
