@@ -1,22 +1,25 @@
 # MAPREDUCE FROM SCRATCH
 
 This project is an attempt to replicate the MapReduce framework from scratch using multithreading.
-<u>It can be optimize way further</u> but at least the result is correct and it gives, in my opinion, a clear idea about the different steps used in such a popular paradigm.
+__It can be optimize way further__ but at least the result is correct and it gives, in my opinion, a clear idea about the different steps used in such a popular algorithm.
 
 Language used: java.
 
-INTRO
-MapReduce(lien wiki) is a paradigm developed in the 2013 in order to handle large volume of data. Its objective is to optimize execution time in distributing files on different computers to perform independent operations.
+## Intro
+
+[MapReduce](https://en.wikipedia.org/wiki/MapReduce) is a paradigm created and first used by Google in 2004 in order to handle large volume of data. Its objective is to optimize execution time in distributing files on different computers to perform independent operations.
 
 MapReduce consists in 4 main steps that are summarized in the below schema:
-SPLIT(lien)
-MAP
-SHUFFLE
-REDUCE
+<!-- TOC -->
+- [SPLIT](#split)
+- MAP
+- SHUFFLE
+- REDUCE
+<!-- /TOC -->
+
+## Project structure
 
 In this project, I've chosen to separate each step on purpose, in order to be able to measure each step running time.
-
-![MapReduceImage](https://github.com/savoga/various_projects/blob/master/MapReduce/MapReducePic.png)
 
 The project is structured in different programs:
 
@@ -33,7 +36,11 @@ Used to clean all files on the machines that will be used for MapReduce. The cle
 Deploy
 This program send the Slave.jar on the different machines. It loops on the machine list and copy the file from local computer to remote ones.
 
-SPLIT
+## Step details
+
+![MapReduceImage](https://github.com/savoga/various_projects/blob/master/MapReduce/MapReducePic.png)
+
+#### SPLIT
 The split step consist in two actions:
 Split the initial text file "input.txt" into multiple files
 
