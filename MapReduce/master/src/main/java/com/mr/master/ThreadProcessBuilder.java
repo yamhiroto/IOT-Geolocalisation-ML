@@ -11,11 +11,14 @@ public class ThreadProcessBuilder implements Runnable {
 
     private BlockingQueue<String> queue = new LinkedBlockingQueue<>();;
     private Process p;
+    private boolean _processFinished;
 
     @Override
     public void run() {
         try {
+            _processFinished = false;
             process();
+            _processFinished = true;
         } catch (InterruptedException | IOException e) {
             Thread.currentThread().interrupt();
         }
@@ -23,6 +26,10 @@ public class ThreadProcessBuilder implements Runnable {
 
     public void setStop(Boolean stop) {
         p.destroy();
+    }
+
+    public boolean isProcessFinished() {
+        return _processFinished;
     }
 
     private void process() throws InterruptedException, IOException {

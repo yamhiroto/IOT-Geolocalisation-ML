@@ -34,7 +34,6 @@ public class ThreadShuffle implements Runnable {
             System.out.println(Master.MACHINES_FILENAME + " not found!!");
         }
 
-
         // *** Execute SLAVE for each map file ***
         /***
          * 1. Get all files in UM folder
@@ -46,7 +45,7 @@ public class ThreadShuffle implements Runnable {
         ThreadProcessBuilder myThread = Master.startThreadProcessBuilder(processBuilder);
         try {
             System.out.println("Getting all UM files on " + _machineName + "...");
-            Thread.sleep(5000); // let some time so that the queue gets filled
+            Thread.sleep(8000); // let some time so that the queue gets filled
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -56,7 +55,7 @@ public class ThreadShuffle implements Runnable {
                     Master.FOLDER_NAME_TMP + Master.FOLDER_NAME_PERSO + "/" + Master.SLAVE_FILENAME,
                     "1", Master.FOLDER_NAME_TMP + Master.FOLDER_NAME_PERSO + Master.FOLDER_NAME_MAPS + "/" + mapFileName);
             System.out.println("Executing jar on " + _machineName);
-            Master.startThreadProcessBuilder(processBuilder2);
+            ThreadProcessBuilder t = Master.startThreadProcessBuilder(processBuilder2);
         }
 
     }

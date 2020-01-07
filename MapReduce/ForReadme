@@ -1,0 +1,17 @@
+fileSearch
+Multi-Threading
+Timing
+Split_create -> limites d'un split en array
+TODO: retrouver les erreurs générées par le Jar depuis le Master
+même avec 3 machines on peut avoir des problèmes de machines down... (connexion pas assez rapide peut-être?)
+
+
+06/05 BUGS TO CORRECT
+split_deploy:
+- les fichiers splits ne sont pas déployés équitablement (marche pas quand nombre de splits > nombre de machines?)
+- vérifier que les machines sont bien utilisées comme il faut
+maps:
+NPE?
+
+06/05 Test avec 3 splits seulement (et 3 machines)
+--> marche bien jusqu'au map, shuffle à tester (par étape)

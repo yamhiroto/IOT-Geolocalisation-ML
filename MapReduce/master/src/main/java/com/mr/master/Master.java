@@ -1,7 +1,6 @@
 package com.mr.master;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -22,6 +21,7 @@ public class Master {
 
     public static final String FOLDER_NAME_TMP = "/tmp";
     public static final String FOLDER_NAME_SPLITS = "/splits";
+    public static final String FOLDER_NAME_REDUCES = "/reduces";
     public static final String FOLDER_NAME_PERSO = "/savoga";
     public static final String FOLDER_NAME_MAPS = "/maps";
     public static final String SSH_COMMAND = "ssh";
@@ -40,7 +40,6 @@ public class Master {
 
     public static void main(String[] args) throws Exception {
 
-        /***
         long startTimeSplit = System.nanoTime();
         System.out.println("*** Split started. ***");
         split_create_MR();
@@ -55,7 +54,6 @@ public class Master {
         usedMachines.clear();
         System.out.println("*** Map finished. ***");
         long endTimeMap = System.nanoTime();
-        ***/
 
         long startTimeShuffle = System.nanoTime();
         System.out.println("*** Shuffle started. ***");
@@ -64,7 +62,6 @@ public class Master {
         System.out.println("*** Shuffle finished. ***");
         long endTimeShuffle = System.nanoTime();
 
-        /***
         long startTimeReduce = System.nanoTime();
         System.out.println("*** Reduce started. ***");
         reduce_MR();
@@ -72,11 +69,47 @@ public class Master {
         System.out.println("*** Reduce finished. ***");
         long endTimeReduce = System.nanoTime();
 
+        long startTimeConcatenation = System.nanoTime();
+        System.out.println("*** Concatenation started. ***");
+        concatenate_results();
+        System.out.println("*** Concatenation finished. ***");
+        long endTimeConcatenation = System.nanoTime();
+
         System.out.println("Split running time: " + formatElapsedTime(startTimeSplit, endTimeSplit));
         System.out.println("Map running time: " + formatElapsedTime(startTimeMap, endTimeMap));
         System.out.println("Shuffle running time: " + formatElapsedTime(startTimeShuffle, endTimeShuffle));
         System.out.println("Reduce running time: " + formatElapsedTime(startTimeReduce, endTimeReduce));
-        ***/
+        System.out.println("Concatenation running time: " + formatElapsedTime(startTimeConcatenation, endTimeConcatenation));
+    }
+
+    private static void concatenate_results() throws IOException, InterruptedException {
+        List<String> wordList = getWordList(FOLDER_RESOURCES + "/" + MACHINES_FILENAME);
+        for (int i = 0; i < wordList.size(); i++) {
+            String machineName = wordList.get(i);
+            machineName = USER_PREFIX + machineName;
+            ProcessBuilder processBuilder = new ProcessBuilder(COPY_COMMAND, "-r", machineName + ":" + FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_REDUCES, HOME_FOLDER);
+            System.out.println("Copying all reduce files locally from " + machineName);
+            ThreadProcessBuilder t = startThreadProcessBuilder(processBuilder);
+            while (!t.isProcessFinished()) {
+                Thread.sleep(2000);
+            }
+        }
+        Thread.sleep(4000);
+        File dir = new File(HOME_FOLDER + FOLDER_NAME_REDUCES);
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                StringBuilder contentBuilder = new StringBuilder();
+                Stream<String> stream = Files.lines(Paths.get(child.getPath()), StandardCharsets.UTF_8);
+                stream.forEach(s -> contentBuilder.append(s).append("\n"));
+                File fileText = new File(HOME_FOLDER + "/" + "MR_results.txt");
+                FileOutputStream is = new FileOutputStream(fileText, true); // create new file or append if existing
+                OutputStreamWriter osw = new OutputStreamWriter(is);
+                Writer w = new BufferedWriter(osw);
+                w.append(contentBuilder.toString());
+                w.close();
+            }
+        }
 
     }
 
@@ -184,8 +217,8 @@ public class Master {
                 System.out.println("Trying to connect to " + machineName);
                 ProcessBuilder processBuilder = new ProcessBuilder(SSH_COMMAND, machineName, HOSTNAME_COMMAND);
                 ThreadProcessBuilder threadProcessBuilder = startThreadProcessBuilder(processBuilder);
-                Thread.sleep(3000);
-                String valueThread = threadProcessBuilder.getQueue().poll(2, TimeUnit.SECONDS);
+                Thread.sleep(8000);
+                String valueThread = threadProcessBuilder.getQueue().poll(3, TimeUnit.SECONDS);
                 if (valueThread == null) {
                     System.out.println(machineName + " is KO");
                 } else {

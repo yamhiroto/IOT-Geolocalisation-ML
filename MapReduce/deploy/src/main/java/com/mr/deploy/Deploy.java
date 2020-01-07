@@ -76,7 +76,7 @@ public class Deploy {
         ProcessBuilder processBuilder = new ProcessBuilder(SSH_COMMAND, machineName, LS_COMMAND, FOLDER_PATH);
         MyThread myThread = startThread(processBuilder);
         try {
-            Thread.sleep(4000); // let some time so that the queue gets filled
+            Thread.sleep(3000); // let some time so that the queue gets filled
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
