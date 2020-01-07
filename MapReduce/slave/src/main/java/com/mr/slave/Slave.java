@@ -127,7 +127,7 @@ public class Slave {
         List<String> fileNameList = listFilesFromPath(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLES);
 
         for (String fileName : fileNameList) {
-            String hashCode = fileName.split("-")[0];
+            String hashCode = fileName.substring(0,1) + fileName.substring(1).split("-")[0]; // substring used to handle negative hashcode
             int machineIndex = Integer.parseInt(hashCode) % nbMachines;
             String machineName = USER_PREFIX + machineList.get(machineIndex);
 
@@ -184,6 +184,9 @@ public class Slave {
         List<String> wordList = new ArrayList<>();
         for (String line : content) { // in this program, line = word
             wordList.add(line);
+        }
+        if(wordList == null) {
+            throw new IOException("No machine list found!!"); // TODO: retrieve exceptions from Master
         }
         return wordList;
     }
