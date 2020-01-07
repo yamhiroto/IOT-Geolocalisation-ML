@@ -1,7 +1,7 @@
 # MAPREDUCE FROM SCRATCH
 
 This project is an attempt to replicate the MapReduce framework from scratch using multithreading.
-It can be optimize way further but at least the result is correct and it gives, in my opinion, a clear idea about the different steps used in such a popular paradigm.
+_It can be optimize way further_ but at least the result is correct and it gives, in my opinion, a clear idea about the different steps used in such a popular paradigm.
 
 Language used: java.
 
