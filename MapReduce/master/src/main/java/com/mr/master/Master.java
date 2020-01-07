@@ -217,7 +217,7 @@ public class Master {
                 System.out.println("Trying to connect to " + machineName);
                 ProcessBuilder processBuilder = new ProcessBuilder(SSH_COMMAND, machineName, HOSTNAME_COMMAND);
                 ThreadProcessBuilder threadProcessBuilder = startThreadProcessBuilder(processBuilder);
-                Thread.sleep(8000);
+                Thread.sleep(4000);
                 String valueThread = threadProcessBuilder.getQueue().poll(3, TimeUnit.SECONDS);
                 if (valueThread == null) {
                     System.out.println(machineName + " is KO");
