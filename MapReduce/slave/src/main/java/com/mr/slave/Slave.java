@@ -128,7 +128,7 @@ public class Slave {
 
         for (String fileName : fileNameList) {
             String hashCode = fileName.substring(0,1) + fileName.substring(1).split("-")[0]; // substring used to handle negative hashcode
-            int machineIndex = Integer.parseInt(hashCode) % nbMachines;
+            int machineIndex = Math.abs(Integer.parseInt(hashCode) % nbMachines);
             String machineName = USER_PREFIX + machineList.get(machineIndex);
 
             while (!distantFolderExist(machineName, FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLESRECEIVED)) {
