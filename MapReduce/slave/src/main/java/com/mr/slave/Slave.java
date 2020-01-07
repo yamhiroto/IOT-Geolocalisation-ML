@@ -80,7 +80,7 @@ public class Slave {
                 }
                 List<String> fileNameShuffleList = listFilesFromPath(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLESRECEIVED);
                 for (String fileNameShuffle : fileNameShuffleList) {
-                    String hashCode = fileNameShuffle.split("-")[0];
+                    String hashCode = fileNameShuffle.substring(0,1) + fileNameShuffle.substring(1).split("-")[0]; // substring used to handle negative hashcodes
                     List<String> contentMapFileShuffle = Files.readAllLines(Paths.get(FOLDER_NAME_TMP + FOLDER_NAME_PERSO + FOLDER_NAME_SHUFFLESRECEIVED + "/" + fileNameShuffle));
                     for (String shuffleLine : contentMapFileShuffle) {
                         String[] shuffleTab = shuffleLine.split(" ");
