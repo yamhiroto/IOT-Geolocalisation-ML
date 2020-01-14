@@ -2,3 +2,6 @@ target/
 master.iml
 .idea/
 *.class
+*checkpoint.ipynb
+*.log
+*.synctex.gz
