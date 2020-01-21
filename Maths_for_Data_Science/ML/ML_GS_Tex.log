@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.1.10)  10 JAN 2020 13:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.1.10)  21 JAN 2020 19:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -610,7 +610,11 @@ Package graphics Info: Driver file: pdftex.def on input line 99.
 \Gin@req@height=\dimen133
 \Gin@req@width=\dimen134
 )
-(./ML_GS_Tex.aux)
+(./ML_GS_Tex.aux
+
+LaTeX Warning: Label `lst:code_direct' multiply defined.
+
+)
 \openout1 = `ML_GS_Tex.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 97.
@@ -625,8 +629,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 97.
 LaTeX Font Info:    ... okay on input line 97.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 97.
 LaTeX Font Info:    ... okay on input line 97.
-
-(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+ (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count121
 \scratchdimen=\dimen135
@@ -769,77 +772,101 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--31
 
  []
 
+) (./Linear_Discriminant_Analysis.tex [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Try loading font information for U+bbm on input line 41.
+ (/usr/share/texlive/texmf-dist/tex/latex/bbm-macros/ubbm.fd
+File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2015/06/04 1.6 listings language file
+) [2]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 113.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 113.
+
+Overfull \hbox (97.56516pt too wide) in paragraph at lines 120--121
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][] 
+ []
+
 ) (./EM_GMM.tex
 Overfull \hbox (8.76936pt too wide) in paragraph at lines 1--1
 []\T1/cmr/bx/n/12 Expectation-Maximization (EM) in the case of GMM (Gaus-sian M
 ix-ture Model) 
  []
 
-[1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]) (./K-means.tex [2]
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2015/06/04 1.6 listings language file
-)
-Overfull \hbox (8.7861pt too wide) in paragraph at lines 63--64
+[3]) (./K-means.tex [4]
+Overfull \hbox (8.7861pt too wide) in paragraph at lines 67--68
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (42.07825pt too wide) in paragraph at lines 66--67
+Overfull \hbox (42.07825pt too wide) in paragraph at lines 70--71
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (42.07825pt too wide) in paragraph at lines 69--70
+Overfull \hbox (42.07825pt too wide) in paragraph at lines 73--74
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (19.88348pt too wide) in paragraph at lines 73--74
+Overfull \hbox (19.88348pt too wide) in paragraph at lines 77--78
 [][][][][][][][][][][][] 
  []
 
-[3]
-<../images/turingmachine.png, id=33, 300.12125pt x 169.63374pt>
+[5]
+<../images/turingmachine.png, id=40, 300.12125pt x 169.63374pt>
 File: ../images/turingmachine.png Graphic file (type png)
 <use ../images/turingmachine.png>
-Package pdftex.def Info: ../images/turingmachine.png  used on input line 85.
+Package pdftex.def Info: ../images/turingmachine.png  used on input line 89.
 (pdftex.def)             Requested size: 300.12051pt x 169.63332pt.
-) [4 <../images/turingmachine.png>] (./ML_GS_Tex.aux) ) 
+) [6 <../images/turingmachine.png>] (./ML_GS_Tex.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
 Here is how much of TeX's memory you used:
- 7625 strings out of 494847
- 103233 string characters out of 6179080
- 195536 words of memory out of 5000000
- 10783 multiletter control sequences out of 15000+600000
- 21868 words of font info for 65 fonts, out of 8000000 for 9000
+ 7709 strings out of 494847
+ 104662 string characters out of 6179080
+ 197408 words of memory out of 5000000
+ 10851 multiletter control sequences out of 15000+600000
+ 24058 words of font info for 72 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 41i,6n,42p,457b,1236s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/savoga/.texlive2
-017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx0900.600pk> </home/savoga/.texliv
-e2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti0900.600pk> </home/savoga/.texl
-ive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0900.600pk> </home/savoga/.te
-xlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/savoga/.
-texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk> </home/savoga
-/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </home/savo
-ga/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1095.600pk> </home/sa
-voga/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/
-savoga/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on ML_GS_Tex.pdf (4 pages, 181559 bytes).
+ 41i,11n,42p,457b,1750s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti0900.60
+0pk> </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0900.
+600pk> </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx090
+0.600pk> </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1
+000.600pk> </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecb
+x1000.600pk> </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/e
+cbx1095.600pk> </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour/public/bbm/
+bbm10.657pk> </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/e
+cti1095.600pk> </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec
+/ecrm1095.600pk> </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/
+ec/ecbx1200.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
+0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/symbols/msbm10.pfb>
+Output written on ML_GS_Tex.pdf (6 pages, 201932 bytes).
 PDF statistics:
- 333 PDF objects out of 1000 (max. 8388607)
- 82 compressed objects within 1 object stream
+ 377 PDF objects out of 1000 (max. 8388607)
+ 90 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
