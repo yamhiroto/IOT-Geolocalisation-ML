@@ -48,7 +48,7 @@ val df_movies_3=df_movies_2
 // grade_formula_1 --> the numerator is increasing higher that the denominator when the number of grades increases
 // => it allows to penalise the movies that has only few grades
 // grade_formula_2 --> similar to the previous formula, but we use the logarithm in order to penalise movies
-// with few grades and harmonize grades of those with many grades
+// with a lot of grades and enhance the importance of movies of those with few grades
 val df_temp_1 = df_ratings_4.groupBy("movieId").agg(sum("rating"),count("movieId")).toDF("movieId","sum_ratings","nb_ratings")
 var df_grades = df_temp_1.withColumn("grade_1",$"sum_ratings"/($"nb_ratings"+1))
 df_grades = df_grades.withColumn("grade_2",($"sum_ratings"/($"nb_ratings"))*log($"nb_ratings")) // (base exp logarithm)
