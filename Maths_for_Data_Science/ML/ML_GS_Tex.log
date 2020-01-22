@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.1.10)  21 JAN 2020 22:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.1.10)  22 JAN 2020 11:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -732,17 +732,23 @@ e
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-(./LogisticRegression.tex
-LaTeX Font Info:    Try loading font information for U+msa on input line 7.
+(./Learning_Theory_For_Classification.tex
+LaTeX Font Info:    Try loading font information for U+msa on input line 5.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 7.
+LaTeX Font Info:    Try loading font information for U+msb on input line 5.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+LaTeX Font Info:    Try loading font information for U+bbm on input line 29.
+
+(/usr/share/texlive/texmf-dist/tex/latex/bbm-macros/ubbm.fd
+File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
+))
+(./LogisticRegression.tex
 Underfull \hbox (badness 10000) in paragraph at lines 7--8
 
  []
@@ -762,7 +768,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 19--21
 
  []
 
+[1
 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 Underfull \hbox (badness 10000) in paragraph at lines 27--29
 
  []
@@ -772,16 +780,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--31
 
  []
 
-) (./Linear_Discriminant_Analysis.tex [1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for U+bbm on input line 41.
- (/usr/share/texlive/texmf-dist/tex/latex/bbm-macros/ubbm.fd
-File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
-)
+) (./Linear_Discriminant_Analysis.tex [2]
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
-) [2]
+)
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 113.
 
 
@@ -796,18 +798,18 @@ Overfull \hbox (97.56516pt too wide) in paragraph at lines 120--121
 ][][][][][][][][][][][][][][][] 
  []
 
-) (./EM_GMM.tex
+[3]) (./EM_GMM.tex
 Overfull \hbox (8.76936pt too wide) in paragraph at lines 1--1
 []\T1/cmr/bx/n/12 Expectation-Maximization (EM) in the case of GMM (Gaus-sian M
 ix-ture Model) 
  []
 
-[3]) (./K-means.tex [4]
+[4]) (./K-means.tex
 Overfull \hbox (8.7861pt too wide) in paragraph at lines 67--68
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-
+[5]
 Overfull \hbox (42.07825pt too wide) in paragraph at lines 70--71
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
@@ -822,21 +824,20 @@ Overfull \hbox (19.88348pt too wide) in paragraph at lines 77--78
 [][][][][][][][][][][][] 
  []
 
-[5]
 <../images/turingmachine.png, id=40, 300.12125pt x 169.63374pt>
 File: ../images/turingmachine.png Graphic file (type png)
 <use ../images/turingmachine.png>
 Package pdftex.def Info: ../images/turingmachine.png  used on input line 89.
 (pdftex.def)             Requested size: 300.12051pt x 169.63332pt.
-) [6 <../images/turingmachine.png>] (./ML_GS_Tex.aux)
+[6]) [7 <../images/turingmachine.png>] (./ML_GS_Tex.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 7709 strings out of 494847
- 104662 string characters out of 6179080
- 197408 words of memory out of 5000000
+ 7712 strings out of 494847
+ 104774 string characters out of 6179080
+ 201983 words of memory out of 5000000
  10851 multiletter control sequences out of 15000+600000
  24058 words of font info for 72 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
@@ -863,10 +864,10 @@ type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /symbols/msbm10.pfb>
-Output written on ML_GS_Tex.pdf (6 pages, 202021 bytes).
+Output written on ML_GS_Tex.pdf (7 pages, 208870 bytes).
 PDF statistics:
- 377 PDF objects out of 1000 (max. 8388607)
- 90 compressed objects within 1 object stream
+ 392 PDF objects out of 1000 (max. 8388607)
+ 94 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
