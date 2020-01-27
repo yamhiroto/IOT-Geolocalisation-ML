@@ -1,0 +1,9 @@
+forward selection
+ACP, AC, ACM
+SVM
+Ridge
+Lasso
+RNN/CNN
+NN
+Aggrégation modèles
+AdaBoost
