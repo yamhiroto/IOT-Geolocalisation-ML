@@ -5,3 +5,4 @@ master.iml
 *checkpoint.ipynb
 *.log
 *.synctex.gz
+.ipynb_checkpoints
