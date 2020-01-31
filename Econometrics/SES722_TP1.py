@@ -35,7 +35,7 @@ h=femme==0
 print("number of men is {}".format(np.sum(h)))
 print("average hourly salary for women is {}".format(np.mean(wage[h])))
 
-# Note: we cannot deduce there is gender discrimination since women can autoselect themselves
+# Note: we cannot deduce there is gender discrimination since women might autoselect themselves
 # ==> for instance, women can select specific jobs that earn less money
 
 # Remove observations with salary > 10
@@ -46,19 +46,19 @@ arr2=arr1[filtered_obs,:]
 # Remove first 15 ans last 15 rows
 np.array(df)[15:-15,:]
 
-# Pour les 50% qui gagnent le plus, trouver la différence de salaire
-# Comparer avec les 50% qui gagnent le moins
+# For the first 50% that earn the most, get the average salary difference between men/women
+# Compare with the last 50%
 n=0.5*df.shape[0]
 df_sorted=df.sort_values(by=[df.columns[0]], ascending=False)[0:int(n)-1]
 sal_women_50=df_sorted[df_sorted[df_sorted.columns[5]]==1]
 sal_men_50=df_sorted[df_sorted[df_sorted.columns[5]]==0]
 mean_50_w=np.mean(np.array(sal_women_50[0]))
 mean_50_m=np.mean(np.array(sal_men_50[0]))
-print(mean_50_m-mean_50_w)
+print("average hourly salary difference for the first 50% is {}".format(mean_50_m-mean_50_w))
 
 df_sorted=df.sort_values(by=[df.columns[0]], ascending=False)[int(n):df.shape[0]]
 sal_women_1=df_sorted[df_sorted[df_sorted.columns[5]]==1]
 sal_men_1=df_sorted[df_sorted[df_sorted.columns[5]]==0]
 mean_1_w=np.mean(np.array(sal_women_1[0]))
-mean_2_m=np.mean(np.array(sal_men_1[0]))
-print(mean_2_m-mean_1_w)
+mean_1_m=np.mean(np.array(sal_men_1[0]))
+print("average hourly salary difference for the last 50% is {}".format(mean_1_m-mean_1_w))
