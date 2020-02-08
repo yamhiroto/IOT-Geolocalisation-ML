@@ -1,4 +1,5 @@
-
+# ********** Differences with simplest_v2.py ************
+# - improve DataSet class (add mean_accuracy)
 
 import tensorflow as tf
 import DataSets as ds
@@ -76,8 +77,8 @@ for iter in range(5000):
 
 	if iter % 500 == 0:
 		with train_summary_writer.as_default():
-			acc1 = train.mean_accuracy(simple_v2)*100
-			acc2 = test.mean_accuracy(simple_v2)*100
+			acc1 = train.mean_accuracy(simple_v2)*100 # % of good predictions on train sample
+			acc2 = test.mean_accuracy(simple_v2)*100 # % of good predictions on test sample
 			print("iter= %6d accuracy - train= %.2f%% - test= %.2f%%" % (iter, acc1,acc2))
 
 

@@ -1,4 +1,3 @@
-
 import tensorflow as tf
 import numpy as np
 import os
@@ -31,7 +30,7 @@ for i in range(nbdata):
 	label[i, :] = np.fromfile(f, dtype=np.float32, count=2)
 f.close()
 
-
+# "framework" d'une couche (initialisation + formule de régression)
 class fc_layer(tf.Module):
 	def __init__(self, input_dim, output_dim):
         # Initialisation - 2304x50 (un poids par pixel et 50 couches cachées)
@@ -45,11 +44,11 @@ class fc_layer(tf.Module):
 	def __call__(self, x):
 		return tf.matmul(x, self.w) + self.b
 
-
+# construction du réseau (nombre de couches, fonctions d'activation)
 class SimpleNet(tf.Module):
 	def __init__(self, input_dim):
-		self.fc1 = fc_layer(input_dim,50)
-		self.fc2 = fc_layer(50,2) # utilité?
+		self.fc1 = fc_layer(input_dim,50) # hidden layer
+		self.fc2 = fc_layer(50,2) # output layer (proba 1 et proba 0 en sortie)
 
 	def __call__(self, x):
 		x = self.fc1(x)
@@ -60,10 +59,12 @@ class SimpleNet(tf.Module):
 
 def train_one_step(model, optimizer, image, label):
 	with tf.GradientTape() as tape:
-		y = model(image) # calcul de la régression (fc_layer.call?)?
-		loss = tf.reduce_sum(tf.square(y - label)) # calcul de l'erreur
+		y = model(image) # SimpleNet.call, fc_layer.call
+        # --> calcul de la première couche, puis de la fonction d'activation,
+        # puis de la deuxième couche
+		loss = tf.reduce_sum(tf.square(y - label)) # calcul de l'erreur par les moindres carrés
 		grads = tape.gradient(loss, model.trainable_variables) # calcul du gradient de la loss
-		optimizer.apply_gradients(zip(grads, model.trainable_variables)) # descente de gradient
+		optimizer.apply_gradients(zip(grads, model.trainable_variables)) # mise à jour des paramètres
 	return loss
 
 

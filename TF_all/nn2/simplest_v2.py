@@ -1,4 +1,7 @@
-
+# ********** Differences with simplest.py ************
+# - improve DataSet class (load data, nextTrainingBatch)
+# - use of summary (for tensorboard?)
+# - use of checkpoints (save and restore)
 
 import tensorflow as tf
 import DataSets as ds
@@ -71,7 +74,7 @@ simple_v2 = SimpleNet(train.dim)
 
 if LoadModel:
 	ckpt = tf.train.Checkpoint(step=tf.Variable(1), optimizer=optimizer, net=simple_v2)
-	# ckpt.restore('./saved_model-1')
+	ckpt.restore(str(Path(os.getcwd()).parent) + '/saved_model-1')
 
 for iter in range(500):
 	tf.summary.experimental.set_step(iter)
@@ -84,4 +87,4 @@ for iter in range(500):
 
 if not LoadModel:
 	ckpt = tf.train.Checkpoint(step=tf.Variable(1), optimizer=optimizer, net=simple_v2)
-	# ckpt.save('./saved_model')
+	ckpt.save(str(Path(os.getcwd()).parent) + '/saved_model')
