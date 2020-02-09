@@ -9,9 +9,11 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 LoadModel = False
 
+DATA_PATH = '/home/savoga/Documents/Deep_Learning_Idemia'
+
 experiment_size = 10
-train = ds.DataSet(str(Path(os.getcwd()).parent) + '/Databases/data_%dk.bin'%experiment_size, str(Path(os.getcwd()).parent) + '/Databases/gender_%dk.bin'%experiment_size,1000*experiment_size)
-test = ds.DataSet(str(Path(os.getcwd()).parent) + '/Databases/data_test10k.bin', str(Path(os.getcwd()).parent) + '/Databases/gender_test10k.bin',10000)
+train = ds.DataSet(DATA_PATH + '/Databases/data_%dk.bin'%experiment_size, DATA_PATH + '/Databases/gender_%dk.bin'%experiment_size,1000*experiment_size)
+test = ds.DataSet(DATA_PATH + '/Databases/data_test10k.bin', DATA_PATH + '/Databases/gender_test10k.bin',10000)
 
 class fc_layer(tf.Module):
 	def __init__(self, name, input_dim, output_dim):
