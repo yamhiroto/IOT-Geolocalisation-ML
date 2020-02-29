@@ -21,4 +21,21 @@ Outputs are the localisation (latitude and longitude) of the located device:
 
 ![OutputImage](https://github.com/savoga/various_projects/blob/master/Data_Challenges/Geolocalisation/output.png)
 
+## Materials
 
+For this challenge, we have:
+- Training samples and their corresponding predictions
+- Test samples for which we need to produce predictions associated
+
+## Project structure
+<!-- TOC -->
+- [LOAD DATA](#load data)
+- [DATA EXPLORATION](#data exploration)
+- [PREPROCESSING](#preprocessing)
+- [PREDICTION](#prediction)
+	- [LINEAR REGRESSION](#reduce)
+		-[CROSS VALIDATION](#cross validation)
+	- [RANDOM FORESTS](#reduce)
+		-[CROSS VALIDATION - LEAVE ONE DEVICE OUT](#cross validation - leave one device out)
+- [POSTPROCESSING](#postprocessing)
+<!-- /TOC -->
