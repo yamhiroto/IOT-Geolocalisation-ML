@@ -30,12 +30,24 @@ For this challenge, we have:
 ## Project structure
 <!-- TOC -->
 - [LOAD DATA](#load data)
-- [DATA EXPLORATION](#data exploration)
+- [DATA EXPLORATION](#data-exploration)
 - [PREPROCESSING](#preprocessing)
 - [PREDICTION](#prediction)
 	- [LINEAR REGRESSION](#reduce)
-		-[CROSS VALIDATION](#cross validation)
+		-[CROSS VALIDATION](#cross-validation)
 	- [RANDOM FORESTS](#reduce)
-		-[CROSS VALIDATION - LEAVE ONE DEVICE OUT](#cross validation - leave one device out)
+		-[CROSS VALIDATION - LEAVE ONE DEVICE OUT](#cross-validation---leave-one-device-out)
 - [POSTPROCESSING](#postprocessing)
 <!-- /TOC -->
+
+## Load data
+
+Three dataframes are used:
+- training samples
+- their corresponding predictions
+- test samples
+
+## Data exploration
+
+We first display device (messages) and bases on a map. We notice some bases are very far away from the device, which are outliers.
+We then decide to display the same map without outliers. Arbitrary distances have been choosen: lattitude between 43 and 65 and longitudes between -65 and -104.
