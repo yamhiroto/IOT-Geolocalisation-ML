@@ -29,14 +29,16 @@ For this challenge, we have:
 
 ## Project structure
 <!-- TOC -->
-- [LOAD DATA](#load data)
+- [LOAD DATA](#load-data)
 - [DATA EXPLORATION](#data-exploration)
+	- [Map](#map)
+	- [Distribution](#distribution)
 - [PREPROCESSING](#preprocessing)
 - [PREDICTION](#prediction)
-	- [LINEAR REGRESSION](#reduce)
-		-[CROSS VALIDATION](#cross-validation)
-	- [RANDOM FORESTS](#reduce)
-		-[CROSS VALIDATION - LEAVE ONE DEVICE OUT](#cross-validation---leave-one-device-out)
+	- [Linear regression](#linear-regression)
+		-[Cross validation](#cross-validation)
+	- [Random forests](#random-forests)
+		-[Cross validation - leave one device out](#cross-validation---leave-one-device-out)	
 - [POSTPROCESSING](#postprocessing)
 <!-- /TOC -->
 
@@ -49,5 +51,14 @@ Three dataframes are used:
 
 ## Data exploration
 
-We first display device (messages) and bases on a map. We notice some bases are very far away from the device, which are outliers.
-We then decide to display the same map without outliers. Arbitrary distances have been choosen: lattitude between 43 and 65 and longitudes between -65 and -104.
+### Map
+We first display device (from message data) and bases on a map. We notice some bases are very far away from the device, which are outliers.
+
+We then decide to display the same map without outliers. Arbitrary distances have been choosen: we keep latitude between 43 and 65 and longitudes between -65 and -104.
+
+### Distribution
+Distributions are plotted to get a view on distances repartitions. Function _dist__calculation_ is used to compute the distance based on latitude and longitude.
+
+## Preprocessing
+We remove outliers from the train set. After several tests, it looked that removing device further than 10 kms gives much better results. Besides, it is reasonable to include device only with small distances to the base.
+
