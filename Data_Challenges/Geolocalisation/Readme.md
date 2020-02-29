@@ -5,7 +5,7 @@
 A company that produces connected device needs to locate the position of their device. They could use GPS but using prediction based on data seems cheaper.
 Prediction is based on the message reception information.
 
-## Inputs
+## Input
 
 Inputs are different information about messages:
 
@@ -15,7 +15,7 @@ Note: _rssi_ (Received Signal Strength Indicator) is an estimation of the signal
 
 Note: we won't use column _nseq_ and _time_ux_.
 
-## Outputs
+## Output
 
 Outputs are the localisation (latitude and longitude) of the located device:
 
@@ -36,9 +36,9 @@ For this challenge, we have:
 - [PREPROCESSING](#preprocessing)
 - [PREDICTION](#prediction)
 	- [Linear regression](#linear-regression)
-		-[Cross validation](#cross-validation)
+	-[Cross validation](#cross-validation)
 	- [Random forests](#random-forests)
-		-[Cross validation - leave one device out](#cross-validation---leave-one-device-out)	
+	-[Cross validation Leave One Device Out](#cross-validation---leave-one-device-out)	
 - [POSTPROCESSING](#postprocessing)
 <!-- /TOC -->
 
@@ -62,3 +62,6 @@ Distributions are plotted to get a view on distances repartitions. Function _dis
 ## Preprocessing
 We remove outliers from the train set. After several tests, it looked that removing device further than 10 kms gives much better results. Besides, it is reasonable to include device only with small distances to the base.
 
+We then build the feature matrice. In rows there are the message IDs. In columns, all the bases from the train set. Those are repeated 3 times: for rssi, for base latitude and base longitude.
+
+The associated predicted values need to have the same format. Thus, we need to group by message id (_messid_) the latitude and longitude, using the mean.
