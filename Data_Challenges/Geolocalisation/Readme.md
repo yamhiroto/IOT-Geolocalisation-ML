@@ -65,3 +65,9 @@ We remove outliers from the train set. After several tests, it looked that remov
 We then build the feature matrice. In rows there are the message IDs. In columns, all the bases from the train set. Those are repeated 3 times: for rssi, for base latitude and base longitude.
 
 The associated predicted values need to have the same format. Thus, we need to group by message id (_messid_) the latitude and longitude, using the mean.
+
+## Prediction
+
+### Linear regression
+
+We use the sickit-learn function [cross_val_predict](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_predict.html) to predict latitude and longitude. This function takes in parameter the number of folds _cv_. Using _cross__val__predict_: "For each element in the input, the prediction that was obtained for that element when it was in the test set".
