@@ -70,4 +70,9 @@ The associated predicted values need to have the same format. Thus, we need to g
 
 ### Linear regression
 
-We use the sickit-learn function [cross_val_predict](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_predict.html) to predict latitude and longitude. This function takes in parameter the number of folds _cv_. Using _cross__val__predict_: "For each element in the input, the prediction that was obtained for that element when it was in the test set".
+#### Cross validation
+We use the sickit-learn function [cross_val_predict](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_predict.html) to predict latitude and longitude. This function takes in parameter the number of folds _cv_. Using _cross_val_predict_: "For each element in the input, the prediction that was obtained for that element when it was in the test set".
+
+### Random forests
+
+#### Cross validation Leave One Device Out
