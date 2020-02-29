@@ -31,14 +31,14 @@ For this challenge, we have:
 <!-- TOC -->
 - [LOAD DATA](#load-data)
 - [DATA EXPLORATION](#data-exploration)
-	- [Map](#map)
-	- [Distribution](#distribution)
+   - [Map](#map)
+   - [Distribution](#distribution)
 - [PREPROCESSING](#preprocessing)
 - [PREDICTION](#prediction)
-	- [Linear regression](#linear-regression)
-	-[Cross validation](#cross-validation)
-	- [Random forests](#random-forests)
-	-[Cross validation Leave One Device Out](#cross-validation---leave-one-device-out)	
+   - [Linear regression](#linear-regression)
+      - [Cross validation](#cross-validation)
+   - [Random forests](#random-forests)
+      - [Cross validation Leave One Device Out](#cross-validation---leave-one-device-out)	
 - [POSTPROCESSING](#postprocessing)
 <!-- /TOC -->
 
