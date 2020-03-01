@@ -39,7 +39,7 @@ For this challenge, we have:
       - [Cross validation](#cross-validation)
       - [Performance measure](#performance-measure)
    - [Random forests](#random-forests)
-      - [Cross validation Leave One Device Out](#cross-validation---leave-one-device-out)	
+      - [Cross validation Leave One Device Out](#cross-validation-leave-one-device-out)	
       - [Performance measure (2)](#performance-measure-(2))
 - [POSTPROCESSING](#postprocessing)
 <!-- /TOC -->
@@ -129,7 +129,7 @@ We look at the error of the 80th percentile, that is around 7.5 kms on the figur
 
 Leave One Device Out strategy consists in splitting the whole train set into unique device. It allows to make the training and the prediction on distinct device.
 
-#### Performance measure
+#### Performance measure (2)
 
 Performance measure is the same as for linear regression, but we do this multiple time (in fact, the number of device) and take the mean as a final score.
 
@@ -139,11 +139,11 @@ Training bases and test bases are different, we thus can't build the same matric
 We decided to use the same structure as for the training phase, that is using the same bases. Our rationale behind this is that we can't predict using new bases as we never trained on them and don't know their signal reliability. Note that after building the structure, the double loop can take some time:
 
 
-``for msgId in df_feat_test_final.index:
-    for baseId in df_feat_test_final.columns:
-        if(baseId in df_feat_test.columns):
-            df_feat_test_final.loc[msgId][baseId]=df_feat_test.loc[msgId][baseId]
-        else:
-            df_feat_test_final.loc[msgId][baseId]=0.0``
+``for msgId in df_feat_test_final.index:``
+``    for baseId in df_feat_test_final.columns:``
+``        if(baseId in df_feat_test.columns):``
+``            df_feat_test_final.loc[msgId][baseId]=df_feat_test.loc[msgId][baseId]``
+``        else:``
+``            df_feat_test_final.loc[msgId][baseId]=0.0``
 
 
