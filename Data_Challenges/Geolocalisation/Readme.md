@@ -122,7 +122,7 @@ Next we plot the cumulative probabilities. This is simply the cumulative sum of 
 
 We look at the error of the 80th percentile, that is around 7.5 kms on the figure.
 
-![CumSumImage](https://github.com/savoga/various_projects/blob/master/Data_Challenges/Geolocalisation/cumsum.png | width=100)
+![CumSumImage](https://github.com/savoga/various_projects/blob/master/Data_Challenges/Geolocalisation/cumsum.png){ width: 200px; }
 
 ### Random forests
 
