@@ -76,28 +76,44 @@ We use the sickit-learn function [cross_val_predict](https://scikit-learn.org/st
 Suppose we have the following training set:
 
 [1] X1 -> Y1
+
 [2] X2 -> Y2
+
 [3] X3 -> Y3
+
 [4] X4 -> Y4
 
 We now perform _cross_val_predict(cv=2)_
 
+1)
+
 [1] X1 -> Y1 (training)
+
 [2] X2 -> Y2 (training)
+
 [3] X3 -> Y3' (prediction)
+
 [4] X4 -> Y4' (prediction)
 
+2)
+
 [1] X1 -> Y1' (prediction)
+
 [2] X2 -> Y2' (prediction)
+
 [3] X3 -> Y3 (training)
+
 [4] X4 -> Y4 (training)
 
 At the end we have [Y1', Y2', Y3', Y4']
 
 It appears that linear regression gives outliers (latitude <-90 or >90). We thus remove those corrupted data:
 
-```grgffef
-```
+`indexes_to_remove = np.where((y_pred_lat > 90) | (y_pred_lat < -90))[0]`
+
+Next we plot the cumulative probabilities. This is simply the cumulative sum of errors divided by the sum of errors:
+
+``plt.plot(base[:-1]/1000, cumulative / np.float(np.sum(values))  * 100.0, c='blue')``
 
 ### Random forests
 
