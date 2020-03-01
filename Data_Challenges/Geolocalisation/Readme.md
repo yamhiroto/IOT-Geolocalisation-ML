@@ -122,7 +122,7 @@ Next we plot the cumulative probabilities. This is simply the cumulative sum of 
 
 We look at the error of the 80th percentile, that is around 7.5 kms on the figure.
 
-![CumSumImage](https://github.com/savoga/various_projects/blob/master/Data_Challenges/Geolocalisation/cumsum.png)
+![CumSumImage](https://github.com/savoga/various_projects/blob/master/Data_Challenges/Geolocalisation/cumsum.png =100x120)
 
 ### Random forests
 
@@ -133,6 +133,8 @@ Leave One Device Out strategy consists in splitting the whole train set into uni
 #### Performance measure (2)
 
 Performance measure is the same as for linear regression, but we do this multiple time (in fact, the number of device) and take the mean as a final score.
+
+We note that Random Forests gave significant better results than linear regression.
 
 ## Postprocessing
 
