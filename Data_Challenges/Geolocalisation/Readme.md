@@ -140,10 +140,15 @@ We decided to use the same structure as for the training phase, that is using th
 
 
 ``for msgId in df_feat_test_final.index:``
+
 ``    for baseId in df_feat_test_final.columns:``
+
 ``        if(baseId in df_feat_test.columns):``
+
 ``            df_feat_test_final.loc[msgId][baseId]=df_feat_test.loc[msgId][baseId]``
+
 ``        else:``
+
 ``            df_feat_test_final.loc[msgId][baseId]=0.0``
 
 
