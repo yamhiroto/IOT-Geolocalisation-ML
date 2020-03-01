@@ -37,8 +37,10 @@ For this challenge, we have:
 - [PREDICTION](#prediction)
    - [Linear regression](#linear-regression)
       - [Cross validation](#cross-validation)
+      - [Performance measure](#performance-measure)
    - [Random forests](#random-forests)
       - [Cross validation Leave One Device Out](#cross-validation---leave-one-device-out)	
+      - [Performance measure (2)](#performance-measure-(2))
 - [POSTPROCESSING](#postprocessing)
 <!-- /TOC -->
 
@@ -71,7 +73,7 @@ The associated predicted values need to have the same format. Thus, we need to g
 ### Linear regression
 
 #### "Cross validation"
-We use the sickit-learn function [cross_val_predict](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_predict.html) to predict latitude and longitude. This function takes in parameter the number of folds _cv_. Using _cross_val_predict_: "For each element in the input, the prediction that was obtained for that element when it was in the test set". As explained, it is <span style="text-decoration: underline">not</span> a scoring function, just several predictions based on changing samples.
+We use the sickit-learn function [cross_val_predict](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_predict.html) to predict latitude and longitude. This function takes in parameter the number of folds _cv_. Using _cross_val_predict_: "For each element in the input, the prediction that was obtained for that element when it was in the test set". As explained, it is **not** a scoring function, just several predictions based on changing samples.
 
 Suppose we have the following training set:
 
@@ -111,12 +113,37 @@ It appears that linear regression gives outliers (latitude <-90 or >90). We thus
 
 `indexes_to_remove = np.where((y_pred_lat > 90) | (y_pred_lat < -90))[0]`
 
+#### Performance measure
+
 Next we plot the cumulative probabilities. This is simply the cumulative sum of errors divided by the sum of errors:
 
 ``plt.plot(base[:-1]/1000, cumulative / np.float(np.sum(values))  * 100.0, c='blue')``
 
+We look at the error of the 80th percentile, that is around 7.5 kms on the figure.
+
+![CumSumImage](https://github.com/savoga/various_projects/blob/master/Data_Challenges/Geolocalisation/cumsum.png)
+
 ### Random forests
 
 #### Cross validation Leave One Device Out
+
+Leave One Device Out strategy consists in splitting the whole train set into unique device. It allows to make the training and the prediction on distinct device.
+
+#### Performance measure
+
+Performance measure is the same as for linear regression, but we do this multiple time (in fact, the number of device) and take the mean as a final score.
+
+## Postprocessing
+
+Training bases and test bases are different, we thus can't build the same matrice of features as above (columns will be different).
+We decided to use the same structure as for the training phase, that is using the same bases. Our rationale behind this is that we can't predict using new bases as we never trained on them and don't know their signal reliability. Note that after building the structure, the double loop can take some time:
+
+
+``for msgId in df_feat_test_final.index:
+    for baseId in df_feat_test_final.columns:
+        if(baseId in df_feat_test.columns):
+            df_feat_test_final.loc[msgId][baseId]=df_feat_test.loc[msgId][baseId]
+        else:
+            df_feat_test_final.loc[msgId][baseId]=0.0``
 
 
