@@ -70,9 +70,37 @@ The associated predicted values need to have the same format. Thus, we need to g
 
 ### Linear regression
 
-#### Cross validation
-We use the sickit-learn function [cross_val_predict](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_predict.html) to predict latitude and longitude. This function takes in parameter the number of folds _cv_. Using _cross_val_predict_: "For each element in the input, the prediction that was obtained for that element when it was in the test set".
+#### "Cross validation"
+We use the sickit-learn function [cross_val_predict](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_predict.html) to predict latitude and longitude. This function takes in parameter the number of folds _cv_. Using _cross_val_predict_: "For each element in the input, the prediction that was obtained for that element when it was in the test set". As explained, it is <span style="text-decoration: underline">not</span> a scoring function, just several predictions based on changing samples.
+
+Suppose we have the following training set:
+
+[1] X1 -> Y1
+[2] X2 -> Y2
+[3] X3 -> Y3
+[4] X4 -> Y4
+
+We now perform _cross_val_predict(cv=2)_
+
+[1] X1 -> Y1 (training)
+[2] X2 -> Y2 (training)
+[3] X3 -> Y3' (prediction)
+[4] X4 -> Y4' (prediction)
+
+[1] X1 -> Y1' (prediction)
+[2] X2 -> Y2' (prediction)
+[3] X3 -> Y3 (training)
+[4] X4 -> Y4 (training)
+
+At the end we have [Y1', Y2', Y3', Y4']
+
+It appears that linear regression gives outliers (latitude <-90 or >90). We thus remove those corrupted data:
+
+```grgffef
+```
 
 ### Random forests
 
 #### Cross validation Leave One Device Out
+
+
