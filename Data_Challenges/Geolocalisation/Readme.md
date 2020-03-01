@@ -42,6 +42,7 @@ For this challenge, we have:
       - [Cross validation Leave One Device Out](#cross-validation-leave-one-device-out)	
       - [Performance measure (2)](#performance-measure-(2))
 - [POSTPROCESSING](#postprocessing)
+- [LIMITS AND IMPROVEMENTS](#limits-and-improvements)
 <!-- /TOC -->
 
 ## Load data
@@ -136,19 +137,10 @@ Performance measure is the same as for linear regression, but we do this multipl
 ## Postprocessing
 
 Training bases and test bases are different, we thus can't build the same matrice of features as above (columns will be different).
-We decided to use the same structure as for the training phase, that is using the same bases. Our rationale behind this is that we can't predict using new bases as we never trained on them and don't know their signal reliability. Note that after building the structure, the double loop can take some time:
+We decided to use the same structure as for the training phase, that is using the same bases. Our rationale behind this is that we can't predict using new bases as we never trained on them and don't know their signal reliability. Note that after building the structure, the double loop can take some time.
 
+## Limits and Improvements
 
-``for msgId in df_feat_test_final.index:``
+We arbitrarly removed outliers that gave bad scores to our models. However, outliers can be present in the test sample and make the prediction bad.
 
-``    for baseId in df_feat_test_final.columns:``
-
-``        if(baseId in df_feat_test.columns):``
-
-``            df_feat_test_final.loc[msgId][baseId]=df_feat_test.loc[msgId][baseId]``
-
-``        else:``
-
-``            df_feat_test_final.loc[msgId][baseId]=0.0``
-
-
+We could think about several other models, especially XGBoost that usually gives good results.

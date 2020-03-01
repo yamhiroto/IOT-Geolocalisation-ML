@@ -94,8 +94,6 @@ df_mess_pos = df_mess_train_1.copy()
 df_mess_pos[['lat', 'lng']] = pos_train_0
 
 df_mess_pos = df_mess_pos.set_index('messid')
-#ground_truth_lat = np.array(df_mess_pos.groupby(['messid']).mean()['lat'])
-#ground_truth_lng = np.array(df_mess_pos.groupby(['messid']).mean()['lng'])
 
 ground_truth_lat = np.array(df_mess_pos.groupby(df_mess_pos.index).mean()['lat'])
 ground_truth_lng = np.array(df_mess_pos.groupby(df_mess_pos.index).mean()['lng'])
@@ -173,17 +171,11 @@ def regressor_and_predict_devices_RF_base(df_feat, ground_truth_lat, ground_trut
 
 devices = np.unique(df_mess_train_1.did).astype('int64') # 113
 n_devices_train = len(np.unique(df_mess_train_1.did))
-n_devices_test = len(np.unique(df_mess_test_0.did))
-
-devices = devices[0:5]
-n_devices_train = 5
-n_devices_test = 5
 
 percentiles = []
 
 kf = KFold(n_splits=n_devices_train, shuffle=False, random_state=0)
 
-devices_out = []
 devices_far = set([])
 
 k_fold_perc = []
@@ -192,7 +184,6 @@ for step, (train_index, test_index) in enumerate(kf.split(devices)):
 
     train_devices = devices[train_index]
     test_devices = devices[test_index]
-    devices_out.append(test_devices[0]) # [0] because test_devices is like [[45]]
 
     # get all information of train / test sets
     mess_train = df_mess_train_1[df_mess_train_1.did.isin(
@@ -233,10 +224,9 @@ base_to_lon_test = df_mess_test_0.pivot(index='messid', columns='bsid', values='
 base_to_lat_test = df_mess_test_0.pivot(index='messid', columns='bsid', values='bs_lat').reset_index().rename_axis(None, axis=1).set_index('messid').add_prefix('bs_lat_')
 df_feat_test = pd.concat([base_to_rssi_test,base_to_lon_test,base_to_lat_test], axis=1).fillna(0.0)
 
-#
-#model = RandomForestRegressor(max_depth=300, n_estimators=100, n_jobs=-1)
-#model.fit(df_feat, np.array([ground_truth_lat, ground_truth_lng]).T)
-#y_pred_lat, y_pred_lng = model.predict(df_feat_test).T
+model = RandomForestRegressor(max_depth=300, n_estimators=100, n_jobs=-1)
+model.fit(df_feat, np.array([ground_truth_lat, ground_truth_lng]).T)
+y_pred_lat, y_pred_lng = model.predict(df_feat_test).T
 
 device_train = np.unique(df_mess_train_1['bsid'])
 device_test = np.unique(df_mess_test_0['bsid'])
@@ -245,20 +235,12 @@ for device in device_test:
     if(device not in device_train):
         print("device not in train")
 
-# Problèmes:
-# La matrice de feature d'entraînement n'est pas de la même taille que la matrice de test car:
-# - il y a 8 nouvelles bases dans l'échantillon de test
-# - nous avons préalablement supprimé des bases trop loins des device
-# => le nombre de colonnes des matrices de features train / tests est différent!!!!
-
 start_time = time.time()
 df_feat_test_final=pd.DataFrame(columns=df_feat.columns)
 df_feat_test_final['messid']=df_feat_test.index
 df_feat_test_final=df_feat_test_final.set_index('messid')
-#df=df_feat_test_final.apply(lambda row: [(0.0 if col not in df_feat_test.columns else df_feat_test.loc[row['messid']][col]) for col in df_feat_test_final.columns], axis=1)
-#df_feat_test_final_2[0].str.split(expand=True)
 
-# Prend 10 min à tourner!!!
+# Can take time to run (10 min using local computer)
 for msgId in df_feat_test_final.index:
     for baseId in df_feat_test_final.columns:
         if(baseId in df_feat_test.columns):
