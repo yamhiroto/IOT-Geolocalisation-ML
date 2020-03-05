@@ -56,12 +56,6 @@ $\xi_i \geq 0$ $i=1,...,n$
 
 \vspace{5mm}
 
-The problem is convex with lineary inequality constraints, we can apply the saddle point theorem.
-
-\textit{Note}: a point is saddle if it's a maximum w.r.t. one axis and a minimium w.r.t. another axis 
-
-\vspace{5mm}
-
 \underline{Lagrange}
 
 \vspace{5mm}
@@ -97,6 +91,14 @@ $\mathcal{L}(\omega,b,\xi, \alpha, \mu) = \frac{1}{2}(\Sigma \alpha_i y_i x_i)^T
 $~~~~~~~~~~~~~~~~~~ = -\frac{1}{2}(\Sigma \alpha_i y_i x_i)^T(\Sigma \alpha_i y_i x_i) + \Sigma(C - \alpha_i - \mu_i)\xi_i + \Sigma \alpha_i - \Sigma \alpha_i y_i b$
 
 $~~~~~~~~~~~~~~~~~~ = -\frac{1}{2}\Sigma_{i,j} \alpha_i \alpha_j y_i y_j x_i^T x_j + \Sigma \alpha_i$
+
+\vspace{5mm}
+
+The problem is convex with lineary inequality constraints, we can apply the saddle point theorem.
+
+\textit{Note}: a point is saddle if it's a maximum w.r.t. one axis and a minimium w.r.t. another axis 
+
+The saddle theorem allows us to solve the problem $min_\omega max_\alpha$ as $max_\alpha min_\omega$
 
 \vspace{5mm}
 
