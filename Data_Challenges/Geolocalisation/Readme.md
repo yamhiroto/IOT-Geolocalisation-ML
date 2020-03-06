@@ -1,5 +1,7 @@
 # Geolocalisation Data Challenge
 
+This project is part of my Data Science degree at Télécom Paris.
+
 ## Objective
 
 A company that produces connected device needs to locate the position of their device. They could use GPS but using prediction based on data seems cheaper.
@@ -15,7 +17,7 @@ Note: _rssi_ (Received Signal Strength Indicator) is an estimation of the signal
 
 Note: we won't use column _nseq_ and _time_ux_.
 
-## Output
+## Output
 
 Outputs are the localisation (latitude and longitude) of the located device:
 
