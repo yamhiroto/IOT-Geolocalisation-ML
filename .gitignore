@@ -1,4 +1,5 @@
 target/
+.git/
 master.iml
 .idea/
 *.class
