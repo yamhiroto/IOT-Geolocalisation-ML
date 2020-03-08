@@ -56,6 +56,26 @@ $\xi_i \geq 0$ $i=1,...,n$
 
 \vspace{5mm}
 
+\textit{Note}: the problem can be rewritten with the hinge loss function
+
+$y_i(\omega^Tx_i+b) \geq 1 - \xi_i => \xi_i \geq 1 - y_i(\omega^Tx_i+b)$
+
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~ => \xi_i \geq 1 - y_i(\omega^Tx_i+b) \geq 0$ since $\xi_i \geq 0$
+
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~ => \xi_i = max(0, 1 - y_i(\omega^Tx_i+b))$
+
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~ => \xi_i = (0, 1 - y_i(\omega^Tx_i+b))_+$
+
+$=> \xi_i = hinge(f(x))$ where $hinge$ is the \textit{Hinge loss} function 
+
+$hinge(f(x)) = (1 - yf(x))_+$
+
+\begin{center}
+$min_{\omega,b}~\frac{1}{2}||\omega||^2+C\Sigma_{i=1}^{n} (0, 1 - y_i(\omega^Tx_i+b))_+$
+\end{center}
+
+\vspace{5mm}
+
 \underline{Lagrange}
 
 \vspace{5mm}
@@ -187,6 +207,20 @@ Linear kernel: $K(x,x') = x^Tx'$ (we often call this setup a "no-kernel SVM")
 Polynomial kernel: $K(x,x') = (x^Tx'+c)^d$
 
 Gaussian kernel: $K(x,x') = exp(-\gamma||x-x'||^2)$
+
+\vspace{5mm}
+
+The optimisation problem can be written with kernel:
+
+\begin{center}
+
+$max_\alpha~~-\frac{1}{2}\Sigma_{i,j} \alpha_i \alpha_j y_i y_j K(x_i,x_j) + \Sigma \alpha_i$
+
+$s.t.~~0 \leq \alpha_i \leq C~~i=1,...,n$
+
+$\Sigma \alpha_i y_i = 0~~i=1,...,n$
+
+\end{center}
 
 \vspace{5mm}
 
